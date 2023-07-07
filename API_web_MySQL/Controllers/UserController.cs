@@ -8,10 +8,10 @@ namespace API_web_MySQL.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ManipulationUser m_manipulationuser;
+        private readonly ManipulationUser m_manipulationUser;
         public UserController(ManipulationUser p_manipulationUser)
         {
-            m_manipulationuser = p_manipulationUser;
+            m_manipulationUser = p_manipulationUser;
         }
 
         //get all users
@@ -21,12 +21,13 @@ namespace API_web_MySQL.Controllers
         [ProducesResponseType(404)]
         public ActionResult<IEnumerable<UserModel>> Get()
         {
-            if (m_manipulationuser.GetAllUsers() is null)
+            if (m_manipulationUser.GetAllUsers() is null)
             {
                 return NotFound();
             }
-            return Ok(m_manipulationuser.GetAllUsers().Select(u => new UserModel(u)).ToList());
+            return Ok(m_manipulationUser.GetAllUsers().Select(u => new UserModel(u)).ToList());
         }
+
         // get user by id
         //GET api/users/{id}
         [HttpGet("{id}")]
@@ -34,7 +35,7 @@ namespace API_web_MySQL.Controllers
         [ProducesResponseType(404)]
         public ActionResult<UserModel>Get(int id)
         {
-            Services.User ?user = m_manipulationuser.GetUserById(id);
+            Services.User ?user = m_manipulationUser.GetUserById(id);
             if(user == null)
             {
                 return NotFound();
@@ -42,5 +43,20 @@ namespace API_web_MySQL.Controllers
             return Ok(new UserModel(user));
         }
 
+        //POST: api/users/
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public ActionResult Post([FromBody] UserModel p_user)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            Services.User newUser = p_user.ToEntity();
+            m_manipulationUser.AddUser(newUser);
+            p_user.UserId = newUser.UserId;
+            return CreatedAtAction(nameof(Get), p_user );
+        }
     }
 }

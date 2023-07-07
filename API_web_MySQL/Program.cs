@@ -19,6 +19,7 @@ namespace API_web_MySQL
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>options.UseMySQL(connectionString,b =>b.MigrationsAssembly("tracksense")));
+            Console.WriteLine("Connection String: " +  connectionString);
 
             builder.Services.AddScoped<IDepotUsers,DepotUsersMySQL>();
 

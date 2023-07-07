@@ -1,4 +1,5 @@
-﻿namespace API_web_MySQL.Models
+﻿using API_web_MySQL.Services;
+namespace API_web_MySQL.Models
 {
     public class UserModel
     {
@@ -18,6 +19,17 @@
             UserAddress = p_user.UserAddress;
             UserCodePostal = p_user.UserCodePostal;
             UserEmail = p_user.UserEmail;
+        }
+        public Services.User ToEntity()
+        {
+            return new User()
+            {
+                UserId = this.UserId,
+                UserName = this.UserName,
+                UserAddress = this.UserAddress,
+                UserCodePostal = this.UserCodePostal,
+                UserEmail = this.UserEmail
+            };
         }
     }
 }

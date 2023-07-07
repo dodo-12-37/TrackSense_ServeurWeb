@@ -24,6 +24,7 @@ namespace API_web_MySQL.Data
             this.UserName = p_user.UserName;
             this.UserEmail = p_user.UserEmail;
             this.UserCodePostal = p_user.UserCodePostal;
+            this.UserAddress = p_user.UserAddress;
         }
         public Services.User ToEntity()
         {

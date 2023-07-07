@@ -57,16 +57,17 @@ namespace API_web_MySQL.Services
                 throw new ArgumentNullException();
             }
 
-            if(p_user.UserEmail == null||p_user.UserName==String.Empty)
+            if(p_user.UserEmail == string.Empty||p_user.UserName==string.Empty)
             {
                 throw new InvalidOperationException();
             }
-            User? activeUser = this.GetAllUsers().First(u => u.UserEmail == p_user.UserEmail);
+            User? activeUser = this.GetAllUsers().FirstOrDefault(u => u.UserEmail == p_user.UserEmail);
 
             if(activeUser != null)
             {
                 throw new InvalidOperationException("The user's email address already exists!");
             }
+            m_depotUsers.AddUser(p_user);
 
         }
     }
