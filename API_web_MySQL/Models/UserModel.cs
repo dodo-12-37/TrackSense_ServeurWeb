@@ -10,7 +10,7 @@ namespace API_web_MySQL.Models
         public string UserEmail { get; set; }
         public UserModel()
         {
-
+            ;
         }
         public UserModel(Services.User p_user)
         {

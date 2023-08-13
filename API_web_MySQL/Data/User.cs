@@ -17,7 +17,7 @@ namespace API_web_MySQL.Data
 
         public User()
         {
-            
+            ;
         }
         public User(Services.User p_user)
         {

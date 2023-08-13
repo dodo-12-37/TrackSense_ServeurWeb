@@ -11,7 +11,7 @@ namespace API_web_MySQL.Services
         public string UserEmail { get;  set; }
         public User()
         {
-
+            ;
         }
         /*public User(string p_userName, string p_userAddress, string  p_userCodePostal, string p_email,bool p_active)
         {

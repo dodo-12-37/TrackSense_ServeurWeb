@@ -6,14 +6,14 @@
         {
             context.Database.EnsureCreated();
             // look for any users.
-            if(context.Users.Any())
+            if (context.Users.Any())
             {
                 return; // DB has been seeded
             }
-            var users = new List<User>() 
-            { 
-                new User() 
-                {   
+            var users = new List<User>()
+            {
+                new User()
+                {
                     UserName="Carson",
                     UserAddress="1565, Rue du Godendard, Drummondville, Quartier Saint-Charles-de-Drummond",
                     UserCodePostal="J2B7T5",

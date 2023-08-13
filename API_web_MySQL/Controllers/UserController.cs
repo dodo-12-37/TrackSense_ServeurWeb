@@ -6,6 +6,7 @@ namespace API_web_MySQL.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [Produces("application/json")]
     public class UserController : ControllerBase
     {
         private readonly ManipulationUser m_manipulationUser;
