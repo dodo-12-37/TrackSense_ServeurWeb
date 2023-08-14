@@ -60,6 +60,7 @@ namespace API_web_MySQL
                 throw;
             }
             //app.UseHttpsRedirection();    //DL : Remettre en service pour la production HTTPS
+            // https://192.168.2.76:7188;http://192.168.2.76:5267;
 
             app.UseAuthorization();
 
