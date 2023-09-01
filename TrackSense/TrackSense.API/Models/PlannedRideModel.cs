@@ -1,8 +1,8 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class PlannedRideViewModel
+    public class PlannedRideModel
     {
         public Guid PlannedRideId { get; set; }
         public string Name { get; set; }
@@ -10,12 +10,12 @@ namespace TrackSense.API.ViewModels
         public PlannedRideStatisticsModel Statistics { get; set; }
         public List<PlannedRidePointModel>? RidePoints { get; set; }
 
-        public PlannedRideViewModel()
+        public PlannedRideModel()
         {
             this.Statistics = new PlannedRideStatisticsModel();
         }
 
-        public PlannedRideViewModel(PlannedRide p_plannedRide)
+        public PlannedRideModel(PlannedRide p_plannedRide)
         {
             this.PlannedRideId = p_plannedRide.PlannedRideId;
             this.Name = p_plannedRide.Name;

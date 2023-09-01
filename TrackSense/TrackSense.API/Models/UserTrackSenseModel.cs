@@ -1,8 +1,8 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class UserTrackSenseViewModel
+    public class UserTrackSenseModel
     {
         public int TrackSenseId { get; set; }
         public double LastLatitude { get; set; }
@@ -13,12 +13,12 @@ namespace TrackSense.API.ViewModels
         public bool IsFallen { get; set; }
         public bool IsStollen { get; set; }
 
-        public UserTrackSenseViewModel()
+        public UserTrackSenseModel()
         {
             ;
         }
 
-        public UserTrackSenseViewModel(UserTrackSense p_userTrackSense)
+        public UserTrackSenseModel(UserTrackSense p_userTrackSense)
         {
             this.TrackSenseId = p_userTrackSense.TrackSenseId;
             this.LastLatitude = p_userTrackSense.LastLatitude;

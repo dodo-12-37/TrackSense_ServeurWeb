@@ -1,26 +1,31 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class CompletedRideViewModel
+    public class CompletedRideModel
     {
+        public string UserLogin { get; set; }
         public Guid CompletedRideId { get; set; }
-        public PlannedRideViewModel? PlannedRide { get; set; }
+        public Guid? PlannedRideId { get; set; }
         public List<CompletedRidePointModel>? CompletedRidePoints { get; set; }
         public CompletedRideStatisticsModel Statistics { get; set; }
 
-        public CompletedRideViewModel()
+        public CompletedRideModel()
         {
-            this.Statistics = new CompletedRideStatisticsModel();
+            ;
         }
 
-        public CompletedRideViewModel(CompletedRide p_completedRide)
+        public CompletedRideModel(CompletedRide p_completedRide)
         {
             this.CompletedRideId = p_completedRide.CompletedRideId;
 
-            if (p_completedRide.PlannedRide != null)
+            if (p_completedRide.PlannedRideId != null)
             {
-                this.PlannedRide = new PlannedRideViewModel(p_completedRide.PlannedRide);
+                this.PlannedRideId = p_completedRide.PlannedRideId;
+            }
+            else
+            {
+                this.PlannedRideId = null;
             }
 
             if (p_completedRide.CompletedRidePoints != null)
@@ -37,12 +42,12 @@ namespace TrackSense.API.ViewModels
         {
             return new CompletedRide
             {
-                CompletedRideId = CompletedRideId,
-                PlannedRide = PlannedRide?.ToEntity(),
-                CompletedRidePoints = CompletedRidePoints?
+                CompletedRideId = this.CompletedRideId,
+                PlannedRideId = this.PlannedRideId,
+                CompletedRidePoints = this.CompletedRidePoints?
                     .Select(point => point.ToEntity())
                     .ToList(),
-                Statistics = Statistics.ToEntity()
+                Statistics = this.Statistics.ToEntity()
             };
         }
     }

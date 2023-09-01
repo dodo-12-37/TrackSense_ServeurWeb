@@ -1,8 +1,8 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class UserViewModel
+    public class UserModel
     {
         public string UserLogin { get; set; }
         public string UserFirstName { get; set; }
@@ -15,12 +15,12 @@ namespace TrackSense.API.ViewModels
         public List<PlannedRideModel>? PlannedRides { get; set; }
         public List<CompletedRideModel>? CompletedRides { get; set; }
 
-        public UserViewModel()
+        public UserModel()
         {
             ;
         }
 
-        public UserViewModel(User p_user)
+        public UserModel(User p_user)
         {
             this.UserLogin = p_user.UserLogin;
             this.UserFirstName = p_user.UserFirstName;
