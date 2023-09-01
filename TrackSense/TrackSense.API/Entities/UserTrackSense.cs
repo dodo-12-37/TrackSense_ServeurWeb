@@ -1,6 +1,6 @@
 ﻿namespace TrackSense.API.Entities
 {
-    public class TrackSense
+    public class UserTrackSense
     {
         public int TrackSenseId { get; set; }
         public double LastLatitude { get; set; }

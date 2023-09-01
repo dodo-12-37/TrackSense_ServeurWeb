@@ -16,9 +16,10 @@ namespace TrackSense.API.Entities
         void DeleteAllUserTokens(string p_userLogin);
         bool CheckUserPassword(string p_userLogin, string p_userPassword);
         void UpdateUserPassword(string p_userLogin, string p_oldPassword, string p_newPassword);
-        TrackSense? GetUserTrackSense(string p_userLogin);
-        void AddUserTrackSense(TrackSense p_trackSense, string p_userLogin);
-        void UpdateUserTrackSense(TrackSense p_userTrackSense);
+        IEnumerable<UserTrackSense>? GetAllUserTrackSenses(string p_userLogin);
+        UserTrackSense? GetUserTrackSense(string p_userLogin);
+        void AddUserTrackSense(UserTrackSense p_trackSense, string p_userLogin);
+        void UpdateUserTrackSense(UserTrackSense p_userTrackSense);
         void DeleteUserTrackSense(string p_trackSenseId, string p_userLogin);
         UserStatistics? GetUserStatistics(string p_userLogin);
         IEnumerable<UserContact> GetUserContacts(string p_userLogin);
@@ -26,10 +27,10 @@ namespace TrackSense.API.Entities
         void AddUserContact(UserContact p_userContact, string p_userLogin);
         void UpdateUserContact(UserContact p_UserContact);
         void DeleteUserContact(int p_contactId);
-        IEnumerable<IntersetPoint> GetIntersetPoints(string p_userLogin);
-        IntersetPoint? GetIntersetPointById(int p_interestPointId);
-        void AddInterestPoint(IntersetPoint p_interestPoint, string p_userLogin);
-        void UpdateInterestPoint(IntersetPoint p_intersetPoint);
-        void DeleteInterestPoint(int p_intersetPointId);
+        IEnumerable<UserIntersetPoint> GetUserIntersetPoints(string p_userLogin);
+        UserIntersetPoint? GetUserIntersetPointById(int p_interestPointId);
+        void AddUserInterestPoint(UserIntersetPoint p_interestPoint, string p_userLogin);
+        void UpdateUserInterestPoint(UserIntersetPoint p_intersetPoint);
+        void DeleteUserInterestPoint(int p_intersetPointId);
     }
 }

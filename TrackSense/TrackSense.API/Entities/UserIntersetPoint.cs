@@ -1,6 +1,6 @@
 ﻿namespace TrackSense.API.Entities
 {
-    public class IntersetPoint
+    public class UserIntersetPoint
     {
         public int InterestPointID { get; set; }
         public string Name { get; set; }

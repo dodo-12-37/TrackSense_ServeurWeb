@@ -9,12 +9,12 @@ namespace TrackSense.API.Services.DTO
             ;
         }
 
-        public TrackSenseDTO(Entities.TrackSense p_trackSense)
+        public TrackSenseDTO(Entities.UserTrackSense p_trackSense)
         {
             throw new NotImplementedException();
         }
 
-        public Entities.TrackSense ToEntity()
+        public Entities.UserTrackSense ToEntity()
         {
             throw new NotImplementedException();
         }
