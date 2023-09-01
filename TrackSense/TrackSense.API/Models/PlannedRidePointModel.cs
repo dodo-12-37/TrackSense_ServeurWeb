@@ -4,7 +4,7 @@ namespace TrackSense.API.ViewModels
 {
     public class PlannedRidePointViewModel
     {
-        public LocationViewModel Location { get; set; }
+        public LocationModel Location { get; set; }
         public int RideStep { get; set; }
         public double Temperature { get; set; }
 
@@ -15,7 +15,7 @@ namespace TrackSense.API.ViewModels
 
         public PlannedRidePointViewModel(PlannedRidePoint point)
         {
-            this.Location = new LocationViewModel(point.Location);
+            this.Location = new LocationModel(point.Location);
             this.RideStep = point.RideStep;
             this.Temperature = point.Temperature;
         }

@@ -8,12 +8,12 @@ namespace TrackSense.API.ViewModels
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
         public string UserPhoneNumber { get; set; }
-        public AddressViewModel? Address { get; set; }
-        public List<UserInterestPointViewModel>? InterestPoints { get; set; }
-        public List<UserContactViewModel>? Contacts { get; set; }
-        public List<UserTrackSenseViewModel>? TrackSenses { get; set; }
-        public List<PlannedRideViewModel>? PlannedRides { get; set; }
-        public List<CompletedRideViewModel>? CompletedRides { get; set; }
+        public AddressModel? Address { get; set; }
+        public List<UserInterestPointModel>? InterestPoints { get; set; }
+        public List<UserContactModel>? Contacts { get; set; }
+        public List<UserTrackSenseModel>? TrackSenses { get; set; }
+        public List<PlannedRideModel>? PlannedRides { get; set; }
+        public List<CompletedRideModel>? CompletedRides { get; set; }
 
         public UserViewModel()
         {
@@ -29,41 +29,41 @@ namespace TrackSense.API.ViewModels
 
             if (p_user.Address != null)
             {
-                this.Address = new AddressViewModel(p_user.Address);
+                this.Address = new AddressModel(p_user.Address);
             }
 
             if (p_user.IntersetPoints != null)
             {
                 this.InterestPoints = p_user.IntersetPoints
-                    .Select(point => new UserInterestPointViewModel(point))
+                    .Select(point => new UserInterestPointModel(point))
                     .ToList();
             }
 
             if (p_user.Contacts != null)
             {
                 this.Contacts = p_user.Contacts
-                    .Select(contact => new UserContactViewModel(contact))
+                    .Select(contact => new UserContactModel(contact))
                     .ToList();
             }
 
             if (p_user.TrackSenses != null)
             {
                 this.TrackSenses = p_user.TrackSenses
-                    .Select(trackSense => new UserTrackSenseViewModel(trackSense))
+                    .Select(trackSense => new UserTrackSenseModel(trackSense))
                     .ToList();
             }
 
             if (p_user.PlannedRides != null)
             {
                 this.PlannedRides = p_user.PlannedRides
-                    .Select(ride => new PlannedRideViewModel(ride))
+                    .Select(ride => new PlannedRideModel(ride))
                     .ToList();
             }
 
             if (p_user.CompletedRides != null)
             {
                 this.CompletedRides = p_user.CompletedRides
-                    .Select(completedRide => new CompletedRideViewModel(completedRide))
+                    .Select(completedRide => new CompletedRideModel(completedRide))
                     .ToList();
             }
         }

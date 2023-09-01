@@ -6,12 +6,12 @@ namespace TrackSense.API.ViewModels
     {
         public Guid CompletedRideId { get; set; }
         public PlannedRideViewModel? PlannedRide { get; set; }
-        public List<CompletedRidePointViewModel>? CompletedRidePoints { get; set; }
-        public CompletedRideStatisticsViewModel Statistics { get; set; }
+        public List<CompletedRidePointModel>? CompletedRidePoints { get; set; }
+        public CompletedRideStatisticsModel Statistics { get; set; }
 
         public CompletedRideViewModel()
         {
-            this.Statistics = new CompletedRideStatisticsViewModel();
+            this.Statistics = new CompletedRideStatisticsModel();
         }
 
         public CompletedRideViewModel(CompletedRide p_completedRide)
@@ -26,11 +26,11 @@ namespace TrackSense.API.ViewModels
             if (p_completedRide.CompletedRidePoints != null)
             {
                 this.CompletedRidePoints = p_completedRide.CompletedRidePoints
-                    .Select(point => new CompletedRidePointViewModel(point))
+                    .Select(point => new CompletedRidePointModel(point))
                     .ToList();
             }
 
-            this.Statistics = new CompletedRideStatisticsViewModel(p_completedRide.Statistics);
+            this.Statistics = new CompletedRideStatisticsModel(p_completedRide.Statistics);
         }
 
         public CompletedRide ToEntity()

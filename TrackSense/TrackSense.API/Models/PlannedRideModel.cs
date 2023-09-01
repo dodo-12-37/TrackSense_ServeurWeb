@@ -7,12 +7,12 @@ namespace TrackSense.API.ViewModels
         public Guid PlannedRideId { get; set; }
         public string Name { get; set; }
         public bool IsFavorite { get; set; }
-        public PlannedRideStatisticsViewModel Statistics { get; set; }
-        public List<PlannedRidePointViewModel>? RidePoints { get; set; }
+        public PlannedRideStatisticsModel Statistics { get; set; }
+        public List<PlannedRidePointModel>? RidePoints { get; set; }
 
         public PlannedRideViewModel()
         {
-            this.Statistics = new PlannedRideStatisticsViewModel();
+            this.Statistics = new PlannedRideStatisticsModel();
         }
 
         public PlannedRideViewModel(PlannedRide p_plannedRide)
@@ -20,12 +20,12 @@ namespace TrackSense.API.ViewModels
             this.PlannedRideId = p_plannedRide.PlannedRideId;
             this.Name = p_plannedRide.Name;
             this.IsFavorite = p_plannedRide.IsFavorite;
-            this.Statistics = new PlannedRideStatisticsViewModel(p_plannedRide.Statistics);
+            this.Statistics = new PlannedRideStatisticsModel(p_plannedRide.Statistics);
 
             if (p_plannedRide.RidePoints != null)
             {
                 this.RidePoints = p_plannedRide.RidePoints
-                    .Select(point => new PlannedRidePointViewModel(point))
+                    .Select(point => new PlannedRidePointModel(point))
                     .ToList();
             }
         }
