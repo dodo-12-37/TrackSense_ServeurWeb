@@ -7,7 +7,7 @@
         public string UserLastName { get; set; }
         public string UserPhoneNumber { get; set; }
         public Address? Address { get; set; }
-        public List<UserIntersetPoint>? IntersetPoints { get; set; }
+        public List<UserInterestPoint>? IntersetPoints { get; set; }
         public List<UserContact>? Contacts { get; set; }
         public List<UserTrackSense>? TrackSenses { get; set; }
         public List<PlannedRide>? PlannedRides { get; set; }

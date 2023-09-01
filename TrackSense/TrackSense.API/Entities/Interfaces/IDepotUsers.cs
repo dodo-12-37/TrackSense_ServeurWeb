@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace TrackSense.API.Entities
+namespace TrackSense.API.Entities.Interfaces
 {
     public interface IDepotUsers
     {
@@ -27,10 +27,10 @@ namespace TrackSense.API.Entities
         void AddUserContact(UserContact p_userContact, string p_userLogin);
         void UpdateUserContact(UserContact p_UserContact);
         void DeleteUserContact(int p_contactId);
-        IEnumerable<UserIntersetPoint> GetUserIntersetPoints(string p_userLogin);
-        UserIntersetPoint? GetUserIntersetPointById(int p_interestPointId);
-        void AddUserInterestPoint(UserIntersetPoint p_interestPoint, string p_userLogin);
-        void UpdateUserInterestPoint(UserIntersetPoint p_intersetPoint);
+        IEnumerable<UserInterestPoint> GetUserIntersetPoints(string p_userLogin);
+        UserInterestPoint? GetUserIntersetPointById(int p_interestPointId);
+        void AddUserInterestPoint(UserInterestPoint p_interestPoint, string p_userLogin);
+        void UpdateUserInterestPoint(UserInterestPoint p_intersetPoint);
         void DeleteUserInterestPoint(int p_intersetPointId);
     }
 }

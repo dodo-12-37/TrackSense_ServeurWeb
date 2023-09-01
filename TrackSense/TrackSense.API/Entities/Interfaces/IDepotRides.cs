@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace TrackSense.API.Entities
+namespace TrackSense.API.Entities.Interfaces
 {
     public interface IDepotRides
     {
