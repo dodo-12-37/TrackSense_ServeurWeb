@@ -1,5 +1,9 @@
 ﻿using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 namespace TrackSense.API.Services.ServiceUsers
 {
@@ -32,6 +36,29 @@ namespace TrackSense.API.Services.ServiceUsers
 
             return this.m_depotUsers.CheckUserToken(userToken);
         }
-        
+
+        public string GenerateUserBearerToken(string p_userLogin, string p_userPassword)
+        {
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(p_userPassword));
+            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            Claim[] claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, p_userLogin),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddYears(10), // Durée de validité du jeton
+                signingCredentials: creds
+            );
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            string bearerToken = tokenHandler.WriteToken(token);
+            return bearerToken;
+        }
+
+
     }
 }

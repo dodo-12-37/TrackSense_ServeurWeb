@@ -63,14 +63,7 @@ namespace TrackSense.API.Controllers
         {
             ActionResult response;
 
-            string token = HttpContext.Request.Headers["Authorization"].ToString();
-
-            //string[] tokenParts = token.Split(' ');
-            //if (tokenParts.Length != 2 || !string.Equals(tokenParts[0], "Bearer", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return BadRequest("Mauvais format de jeton.");
-            //}
-            //string bearerToken = tokenParts[1];
+            string? token = this.GetUserToken();
 
             if (p_completedRide == null || String.IsNullOrWhiteSpace(token))
             {
@@ -119,6 +112,25 @@ namespace TrackSense.API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+
+        private string? GetUserToken()
+        {
+            string token = HttpContext.Request.Headers["Authorization"].ToString();
+
+            string[] tokenParts = token.Split(' ');
+
+            if (tokenParts.Length != 2 || !string.Equals(tokenParts[0], "Bearer", StringComparison.OrdinalIgnoreCase))
+            {
+                token = null;
+            }
+            else
+            {
+                token = tokenParts[1];
+            }
+
+            return token;
         }
     }
 }
