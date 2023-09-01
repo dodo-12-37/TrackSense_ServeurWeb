@@ -39,6 +39,11 @@ namespace TrackSense.API.Services.ServiceUsers
 
         public string GenerateUserBearerToken(string p_userLogin, string p_userPassword)
         {
+            if (String.IsNullOrWhiteSpace(p_userLogin) || String.IsNullOrWhiteSpace(p_userLogin))
+            {
+                throw new ArgumentNullException($"{nameof(p_userLogin)} et {p_userLogin} ne doivent pas etre nulls ou vides - ManipulationUsers.GenerateUserBearerToken");
+            }
+
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(p_userPassword));
             SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
