@@ -12,6 +12,5 @@
         public List<TrackSense>? TrackSenses { get; set; }
         public List<PlannedRide>? PlannedRides { get; set; }
         public List<CompletedRide>? CompletedRides { get; set; }
-        public List<UserToken>? Tokens { get; set; }
     }
 }

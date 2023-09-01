@@ -2,7 +2,7 @@
 
 namespace TrackSense.API.Services.ServiceUsers
 {
-    public class ManipulationUsers
+    public class DepotUsers
         : IDepotUsers
     {
         public void AddUser(User p_user)

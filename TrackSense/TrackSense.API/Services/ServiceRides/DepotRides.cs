@@ -2,7 +2,7 @@
 
 namespace TrackSense.API.Services.ServiceRides
 {
-    public class ManipulationRides
+    public class DepotRides
         : IDepotRides
     {
     }
