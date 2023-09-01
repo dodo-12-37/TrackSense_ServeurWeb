@@ -3,7 +3,7 @@ using TrackSense.API.Entities.Interfaces;
 
 namespace TrackSense.API.Services.ServiceRides
 {
-    public class DepotRides
+    public class DepotRidesMySQL
         : IDepotRides
     {
         public void AddCompletedRide(string p_userLogin, CompletedRide p_comletedRide)

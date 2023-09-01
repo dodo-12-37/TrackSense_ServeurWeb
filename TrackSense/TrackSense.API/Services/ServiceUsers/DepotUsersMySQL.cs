@@ -3,7 +3,7 @@ using TrackSense.API.Entities.Interfaces;
 
 namespace TrackSense.API.Services.ServiceUsers
 {
-    public class DepotUsers
+    public class DepotUsersMySQL
         : IDepotUsers
     {
         public void AddUser(User p_user)
