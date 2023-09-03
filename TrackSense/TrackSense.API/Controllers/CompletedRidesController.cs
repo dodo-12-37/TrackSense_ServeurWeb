@@ -32,40 +32,21 @@ namespace TrackSense.API.Controllers
             this.m_usersManipulation = p_manipulationUsers;
         }
 
-
-        // GET: api/<CompletedRidesController>
-        [HttpGet]
-        public ActionResult<IEnumerable<CompletedRideModel>> Get()
-        {
-            string token = HttpContext.Request.Headers["Authorization"].ToString();
-
-
-
-
-
-
-
-            return Ok();
-        }
-
         // GET api/<CompletedRidesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CompletedRidesController>
-        [HttpPost]
-        [ProducesResponseType(201)]
+        [HttpGet("{p_completedRideId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public ActionResult Post([FromBody] CompletedRideModel p_completedRide)
+        [ProducesResponseType(401)]
+        public ActionResult<CompletedRideModel> Get(Guid p_completedRideId)
         {
-            ActionResult response;
+            ActionResult<CompletedRideModel> response;
 
-            string? token = this.GetUserToken();
-
-            if (p_completedRide == null || String.IsNullOrWhiteSpace(token))
+            if (!this.CheckUserToken())
+            {
+                response = Unauthorized();
+            }
+            else if (p_completedRideId == Guid.Empty)
             {
                 response = BadRequest();
             }
@@ -73,24 +54,11 @@ namespace TrackSense.API.Controllers
             {
                 try
                 {
-                    UserTokenModel userToken = new UserTokenModel()
-                    {
-                        Token = token,
-                        UserLogin = p_completedRide.UserLogin
-                    };
+                    CompletedRide? completedRide = this.m_ridesManipulation.GetCompletedRide(p_completedRideId);
 
-                    if (this.m_usersManipulation.CheckUserToken(token, p_completedRide.UserLogin))
-                    {
-                        CompletedRide completedRide = p_completedRide.ToEntity();
-                        this.m_ridesManipulation.AddCompletedRide(token, completedRide);
-
-                        string url = $"api/completedRides/{p_completedRide.CompletedRideId}";
-                        response = Created(url, new CompletedRideModel(completedRide));
-                    }
-                    else
-                    {
-                        response = Unauthorized();
-                    }
+                    response = completedRide != null 
+                        ? Ok(new CompletedRideModel(completedRide)) 
+                        : NoContent();
                 }
                 catch (Exception)
                 {
@@ -99,7 +67,42 @@ namespace TrackSense.API.Controllers
             }
 
             return response;
-            
+        }
+
+        // POST api/<CompletedRidesController>
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public ActionResult Post([FromBody] CompletedRideModel p_completedRide)
+        {
+            ActionResult response;
+
+            if (this.CheckUserToken())
+            {
+                response = Unauthorized();
+            }
+            else if (p_completedRide == null)
+            {
+                response = BadRequest();
+            }
+            else
+            {
+                try
+                {
+                    CompletedRide completedRide = p_completedRide.ToEntity();
+                    this.m_ridesManipulation.AddCompletedRide(p_completedRide.UserLogin, completedRide);
+
+                    string url = $"api/completedRides/{p_completedRide.CompletedRideId}";
+                    response = Created(url, new CompletedRideModel(completedRide));
+                }
+                catch (Exception)
+                {
+                    response = StatusCode((int)HttpStatusCode.InternalServerError);
+                }
+            }
+
+            return response;
         }
 
         // PUT api/<CompletedRidesController>/5
@@ -109,11 +112,22 @@ namespace TrackSense.API.Controllers
         }
 
         // DELETE api/<CompletedRidesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
 
+
+        private bool CheckUserToken()
+        {
+            string? token = this.GetUserToken();
+
+
+            ///////////////////////////////////////////////////////////////////
+            return true;
+            ///////////////////////////////////////////////////////////////////
+            return !String.IsNullOrWhiteSpace(token) && this.m_usersManipulation.CheckUserToken(token);
+        }
 
         private string? GetUserToken()
         {

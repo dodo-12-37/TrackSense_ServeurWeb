@@ -10,7 +10,7 @@ namespace TrackSense.API.Entities.Interfaces
         void DeleteUser(string p_userLogin);
         void AddUser(User p_user);
         bool GetAvailabilityUserLogin(string p_userLogin);
-        bool CheckUserToken(UserToken p_userToken);
+        bool CheckUserToken(string p_token);
         UserToken? ConnectUser(string p_userLogin, string p_userPassword);
         void DeleteUserToken(UserToken p_userToken);
         void DeleteAllUserTokens(string p_userLogin);
@@ -32,5 +32,6 @@ namespace TrackSense.API.Entities.Interfaces
         void AddUserInterestPoint(UserInterestPoint p_interestPoint, string p_userLogin);
         void UpdateUserInterestPoint(UserInterestPoint p_intersetPoint);
         void DeleteUserInterestPoint(int p_intersetPointId);
+        IEnumerable<UserCompletedRide> GetUserCompletedRides(string p_userLogin);
     }
 }

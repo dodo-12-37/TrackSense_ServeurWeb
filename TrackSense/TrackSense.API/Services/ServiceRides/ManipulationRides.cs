@@ -32,9 +32,9 @@ namespace TrackSense.API.Services.ServiceRides
             this.m_depotRides.AddCompletedRide(p_userLogin, p_completedRide);
         }
 
-
-
-
-
+        public CompletedRide? GetCompletedRide(Guid p_completedRideId)
+        {
+            return this.m_depotRides.GetCompletedRideById(p_completedRideId);
+        }
     }
 }

@@ -21,27 +21,27 @@ namespace TrackSense.API.Services.ServiceUsers
             this.m_depotUsers = p_depotUsers;
         }
 
-        public bool CheckUserToken(string p_token, string p_userLogin)
+        public bool CheckUserToken(string p_token)
         {
-            if (String.IsNullOrWhiteSpace(p_token) || String.IsNullOrWhiteSpace(p_userLogin))
+            if (String.IsNullOrWhiteSpace(p_token))
             {
-                throw new ArgumentNullException($"{nameof(p_token)} et {p_userLogin} ne doivent pas etre nulls ou vides - ManipulationUsers.CheckUserToken");
+                throw new ArgumentNullException($"{nameof(p_token)} ne doit pas etre null ou vide - {nameof(ManipulationUsers)}.{nameof(CheckUserToken)}");
             }
 
-            UserToken userToken = new UserToken()
-            {
-                Token = p_token,
-                UserLogin = p_userLogin
-            };
+            return this.m_depotUsers.CheckUserToken(p_token);
+        }
 
-            return this.m_depotUsers.CheckUserToken(userToken);
+        public bool CheckUser(string p_userLogin)
+        {
+            return !String.IsNullOrEmpty(p_userLogin) 
+                && this.m_depotUsers.GetUserByUserLogin(p_userLogin) != null;
         }
 
         public string GenerateUserBearerToken(string p_userLogin, string p_userPassword)
         {
             if (String.IsNullOrWhiteSpace(p_userLogin) || String.IsNullOrWhiteSpace(p_userLogin))
             {
-                throw new ArgumentNullException($"{nameof(p_userLogin)} et {p_userLogin} ne doivent pas etre nulls ou vides - ManipulationUsers.GenerateUserBearerToken");
+                throw new ArgumentNullException($"{nameof(p_userLogin)} et {p_userLogin} ne doivent pas etre nulls ou vides - {nameof(ManipulationUsers)}.{nameof(GenerateUserBearerToken)}");
             }
 
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(p_userPassword));
@@ -64,6 +64,21 @@ namespace TrackSense.API.Services.ServiceUsers
             return bearerToken;
         }
 
+        public IEnumerable<UserCompletedRide> GetCompletedRides(string p_userLogin)
+        {
+            if (string.IsNullOrWhiteSpace(p_userLogin) )
+            {
+                throw new ArgumentNullException($"{nameof(p_userLogin)} ne doit pas etre null ou vide - {nameof(ManipulationUsers)}.{nameof(GetCompletedRides)}");
+            }
 
+            IEnumerable<UserCompletedRide> completedRides = new List<UserCompletedRide>();
+
+            if (this.m_depotUsers.GetUserByUserLogin(p_userLogin) != null)
+            {
+                completedRides = this.m_depotUsers.GetUserCompletedRides(p_userLogin);
+            }
+
+            return completedRides;
+        }
     }
 }
