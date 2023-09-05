@@ -1,11 +1,16 @@
-﻿using TrackSense.API.Entities;
+﻿using TrackSense.API.Data;
+using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;
 
 namespace TrackSense.API.Services.ServiceUsers
 {
-    public class DepotUsersMySQL
-        : IDepotUsers
+    public class DepotUsersMySQL: IDepotUsers
     {
+        private readonly ApplicationDbContext m_context;
+        public DepotUsersMySQL(ApplicationDbContext p_applicationDbContext)
+        {
+            m_context = p_applicationDbContext;
+        }
         public void AddUser(User p_user)
         {
             throw new NotImplementedException();
