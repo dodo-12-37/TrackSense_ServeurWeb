@@ -7,9 +7,12 @@ namespace TrackSense.API.Data
     public class ApplicationDbContext 
         : DbContext
     {
-        public DbSet<UserDTO> UserDTO { get; set; }
-        public DbSet<LocationDTO> LocationDTO { get; set; }
-        public DbSet<AddressDTO> AddressDTO { get; set; }
+        public DbSet<UserDTO> UserDTOs { get; set; }
+        public DbSet<LocationDTO> LocationDTOs { get; set; }
+        public DbSet<AddressDTO> AddressDTOs { get; set; }
+        public DbSet<PlannedRideDTO>PlannedRideDTOs { get; set; }
+        public DbSet<PlannedRidePointDTO>PlannedRidePointDTOs { get; set; }
+        public DbSet<PlannedRideStatisticsDTO> PlannedRideStatisticsDTOs { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
       

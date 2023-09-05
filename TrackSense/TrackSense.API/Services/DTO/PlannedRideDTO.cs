@@ -42,8 +42,8 @@ namespace TrackSense.API.Services.DTO
                 UserLogin = this.UserLogin,
                 Name = this.Name,
                 IsFavorite = this.IsFavorite,
-                Statistics = this.Statistics.ToEntity();
-            }
+                Statistics = this.Statistics.ToEntity()
+            };
         }
     }
 }
