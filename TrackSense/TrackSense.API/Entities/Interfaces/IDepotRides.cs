@@ -14,7 +14,7 @@ namespace TrackSense.API.Entities.Interfaces
         PlannedRide? GetPlannedRideById(Guid p_completedRideId);
         void UpdatePlannedRide(PlannedRide p_plannedRide);
         void DeletePlannedRide(Guid p_plannedRideId);
-        void AddPlannedRide(string p_userLogin, PlannedRide p_plannedRide);
+        void AddPlannedRide(PlannedRide p_plannedRide);
         PlannedRideStatistics? GetAllPlannedRideStatistics(Guid p_plannedRideId);
     }
 }

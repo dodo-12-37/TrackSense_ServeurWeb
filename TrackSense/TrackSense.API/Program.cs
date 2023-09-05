@@ -20,11 +20,11 @@ namespace TrackSense.API
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString, b => b.MigrationsAssembly("tracksense")));
             Console.WriteLine("Connection String: " + connectionString);
 
-            builder.Services.AddSingleton<IDepotUsers, DepotUsersMySQL>();
-            builder.Services.AddSingleton<IDepotRides, DepotRidesMySQL>();
+            builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
+            builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();
 
-            builder.Services.AddSingleton<ManipulationUsers>();
-            builder.Services.AddSingleton<ManipulationRides>();
+            builder.Services.AddScoped<ManipulationUsers>();
+            builder.Services.AddScoped<ManipulationRides>();
 
             builder.Services.AddControllers();
 
