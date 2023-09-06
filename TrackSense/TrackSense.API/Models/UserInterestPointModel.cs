@@ -1,19 +1,19 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class UserInterestPointViewModel
+    public class UserInterestPointModel
     {
         public int InterestPointID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public UserInterestPointViewModel()
+        public UserInterestPointModel()
         {
             ;
         }
 
-        public UserInterestPointViewModel(UserInterestPoint p_userInterestPoint)
+        public UserInterestPointModel(UserInterestPoint p_userInterestPoint)
         {
             this.InterestPointID = p_userInterestPoint.InterestPointID;
             this.Name = p_userInterestPoint.Name;

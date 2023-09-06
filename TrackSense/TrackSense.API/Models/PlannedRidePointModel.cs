@@ -1,21 +1,21 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class PlannedRidePointViewModel
+    public class PlannedRidePointModel
     {
-        public LocationViewModel Location { get; set; }
+        public LocationModel Location { get; set; }
         public int RideStep { get; set; }
         public double Temperature { get; set; }
 
-        public PlannedRidePointViewModel()
+        public PlannedRidePointModel()
         {
             ;
         }
 
-        public PlannedRidePointViewModel(PlannedRidePoint point)
+        public PlannedRidePointModel(PlannedRidePoint point)
         {
-            this.Location = new LocationViewModel(point.Location);
+            this.Location = new LocationModel(point.Location);
             this.RideStep = point.RideStep;
             this.Temperature = point.Temperature;
         }

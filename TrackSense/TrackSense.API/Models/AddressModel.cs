@@ -1,11 +1,11 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class AddressViewModel
+    public class AddressModel
     {
         public int AddressId { get; set; }
-        public LocationViewModel Location { get; set; }
+        public LocationModel Location { get; set; }
         public string AppartmentNumber { get; set; }
         public string StreetNumber { get; set; }
         public string StreetName { get; set; }
@@ -14,15 +14,15 @@ namespace TrackSense.API.ViewModels
         public string State { get; set; }
         public string Country { get; set; }
 
-        public AddressViewModel()
+        public AddressModel()
         {
             ;
         }
 
-        public AddressViewModel(Address p_address)
+        public AddressModel(Address p_address)
         {
             this.AddressId = p_address.AddressId;
-            this.Location = new LocationViewModel(p_address.Location);
+            this.Location = new LocationModel(p_address.Location);
             this.AppartmentNumber = p_address.AppartmentNumber;
             this.StreetNumber = p_address.StreetNumber;
             this.StreetName = p_address.StreetName;

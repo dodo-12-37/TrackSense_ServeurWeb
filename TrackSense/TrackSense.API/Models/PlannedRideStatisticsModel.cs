@@ -1,19 +1,19 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class PlannedRideStatisticsViewModel
+    public class PlannedRideStatisticsModel
     {
         public double AverageSpeed { get; set; }
         public double MaximumSpeed { get; set; }
         public double AverageDuration { get; set; }
 
-        public PlannedRideStatisticsViewModel()
+        public PlannedRideStatisticsModel()
         {
             ;
         }
 
-        public PlannedRideStatisticsViewModel(PlannedRideStatistics statistics)
+        public PlannedRideStatisticsModel(PlannedRideStatistics statistics)
         {
             this.AverageSpeed = statistics.AverageSpeed;
             this.MaximumSpeed = statistics.MaximumSpeed;
