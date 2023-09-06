@@ -24,10 +24,28 @@ namespace TrackSense.API.Services.DTO
         {
             
         }
+
         public CompletedRideDTO(CompletedRide p_completedRide)
         {
             this.CompletedRideId = p_completedRide.CompletedRideId;
             this.UserLogin = p_completedRide.UserLogin;
+            this.PlannedRideId = p_completedRide.PlannedRideId;
+            this.CompletedRidePoints = p_completedRide.CompletedRidePoints?
+                .Select(point => new CompletedRidePointDTO(point))
+                .ToList();
+            this.Statistics = new CompletedRideStatisticsDTO(p_completedRide.Statistics);
+        }
+
+        public ToEntity(){
+            return new CompletedRide{
+                CompletedRideId = this.CompletedRideId,
+                UserLogin = this.UserLogin,
+                PlannedRideId = this.PlannedRideId,
+                CompletedRidePoints = this.CompletedRidePoints?
+                    .Select(point => point.ToEntity())
+                    .ToList(),
+                Statistics = this.Statistics.ToEntity()
+            };
         }
     }
 }
