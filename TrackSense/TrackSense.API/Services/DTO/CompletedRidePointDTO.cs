@@ -16,9 +16,9 @@ namespace TrackSense.API.Services.DTO
 
         [Required]
         public virtual LocationDTO Location { get; set; }
-        public int  RideStep { get; set; }
-        public double  Temperature { get; set; }
-        public DateTime  DateTime { get; set; }
+        public int?  RideStep { get; set; }
+        public double?  Temperature { get; set; }
+        public DateTime?  DateTime { get; set; }
 
         public CompletedRidePointDTO()
         {

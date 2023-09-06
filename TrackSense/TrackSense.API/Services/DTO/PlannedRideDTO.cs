@@ -7,8 +7,9 @@ namespace TrackSense.API.Services.DTO
     public class PlannedRideDTO
     {
         [Key]
+        [Required]
         public Guid PlannedRideId { get; set; } = Guid.Empty;
-
+        [Required]
         [ForeignKey(nameof(UserLogin))]
         public string UserLogin { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;

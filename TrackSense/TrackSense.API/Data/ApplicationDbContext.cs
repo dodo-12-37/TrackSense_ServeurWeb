@@ -13,6 +13,7 @@ namespace TrackSense.API.Data
         public DbSet<PlannedRideDTO>PlannedRideDTOs { get; set; }
         public DbSet<PlannedRidePointDTO>PlannedRidePointDTOs { get; set; }
         public DbSet<PlannedRideStatisticsDTO> PlannedRideStatisticsDTOs { get; set; }
+        public DbSet<CompletedRideDTO> CompletedRideDTOs { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
       
