@@ -117,7 +117,6 @@ namespace TrackSense.API.Controllers
         //{
         //}
 
-
         private bool CheckUserToken()
         {
             string? token = this.GetUserToken();
