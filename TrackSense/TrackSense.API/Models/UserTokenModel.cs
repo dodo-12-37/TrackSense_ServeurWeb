@@ -1,18 +1,18 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class UserTokenViewModel
+    public class UserTokenModel
     {
         public string UserLogin { get; set; }
         public string Token { get; set; }
 
-        public UserTokenViewModel()
+        public UserTokenModel()
         {
             ;
         }
 
-        public UserTokenViewModel(UserToken p_userToken)
+        public UserTokenModel(UserToken p_userToken)
         {
             this.UserLogin = p_userToken.UserLogin;
             this.Token = p_userToken.Token;

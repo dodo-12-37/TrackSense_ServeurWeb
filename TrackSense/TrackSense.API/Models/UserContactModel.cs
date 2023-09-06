@@ -1,19 +1,19 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class UserContactViewModel
+    public class UserContactModel
     {
         public int ContactId { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
 
-        public UserContactViewModel()
+        public UserContactModel()
         {
             ;
         }
 
-        public UserContactViewModel(UserContact p_userContact)
+        public UserContactModel(UserContact p_userContact)
         {
             this.ContactId = p_userContact.ContactId;
             this.FullName = p_userContact.FullName;

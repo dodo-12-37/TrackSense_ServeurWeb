@@ -1,8 +1,8 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class UserStatisticsViewModel
+    public class UserStatisticsModel
     {
         public double AverageSpeed { get; set; }
         public double MaximumSpeed { get; set; }
@@ -11,12 +11,12 @@ namespace TrackSense.API.ViewModels
         public int Calories { get; set; }
         public int Falls { get; set; }
 
-        public UserStatisticsViewModel()
+        public UserStatisticsModel()
         {
             ;
         }
 
-        public UserStatisticsViewModel(UserStatistics p_userStatistics)
+        public UserStatisticsModel(UserStatistics p_userStatistics)
         {
             this.AverageSpeed = p_userStatistics.AverageSpeed;
             this.MaximumSpeed = p_userStatistics.MaximumSpeed;

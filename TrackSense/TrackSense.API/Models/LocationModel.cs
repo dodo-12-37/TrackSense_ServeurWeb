@@ -1,8 +1,8 @@
 ﻿using TrackSense.API.Entities;
 
-namespace TrackSense.API.ViewModels
+namespace TrackSense.API.Models
 {
-    public class LocationViewModel
+    public class LocationModel
     {
         public int LocationId { get; set; }
         public double Latitude { get; set; }
@@ -11,12 +11,12 @@ namespace TrackSense.API.ViewModels
         public double Speed { get; set; }
 
 
-        public LocationViewModel()
+        public LocationModel()
         {
             ;
         }
 
-        public LocationViewModel(Location p_location)
+        public LocationModel(Location p_location)
         {
             this.LocationId = p_location.LocationId;
             this.Latitude = p_location.Latitude;

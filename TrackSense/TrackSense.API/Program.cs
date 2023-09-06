@@ -51,8 +51,6 @@ namespace TrackSense.API
 
             app.UseRouting();
 
-            app.MapRazorPages();
-
             app.UseAuthorization();
 
             app.MapControllers();
