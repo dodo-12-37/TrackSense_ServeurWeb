@@ -4,13 +4,12 @@ using TrackSense.API.Entities;
 
 namespace TrackSense.API.Services.DTO
 {
+    [Table("CompletedRidePoint")]
     public class CompletedRidePointDTO
     {
-        [Key]
         [ForeignKey(nameof(CompletedRideId))]
         public Guid CompletedRideId { get; set; } = Guid.Empty;
 
-        [Key]
         [ForeignKey(nameof(LocationId))]
         public int LocationId { get;set; } = 0;
 

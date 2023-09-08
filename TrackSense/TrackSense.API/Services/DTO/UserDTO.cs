@@ -7,15 +7,22 @@ namespace TrackSense.API.Services.DTO
     [Table("user")]
     public class UserDTO
     {
-        [Key][Required]
+        [Key]
+        [MaxLength(50)]
         public string UserLogin { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
-        public int AddressId { get; set; }
-        public string UserCodePostal { get; set; }
-        public string UserEmail { get; set; }
-        public string UserPhoneNumber { get; set; }
-       
+        [MaxLength(100)]
+        public string ?FirstName { get; set; }
+        [MaxLength(100)]
+        public string ?LastName { get; set; }
+        [ForeignKey("AddressId")]
+        public int? AddressId { get; set; }
+        [MaxLength(100)]
+        public string? CodePostal { get; set; }
+        [MaxLength(100)]
+        public string? Email { get; set; }
+        [MaxLength(12)]
+        public string? PhoneNumber { get; set; }
+
         public virtual AddressDTO AddressDTO { get; set; }
         public UserDTO()
         {
@@ -49,9 +56,9 @@ namespace TrackSense.API.Services.DTO
             return new User()
             {
                 UserLogin = this.UserLogin,
-                UserFirstName = this.UserFirstName,
-                UserLastName = this.UserLastName,
-                UserPhoneNumber = this.UserPhoneNumber,
+                UserFirstName = this.FirstName,
+                UserLastName = this.LastName,
+               /* UserPhoneNumber = this.PhoneNumber,*/
                 Address = this.AddressDTO.ToEntity(),
             };
         }
