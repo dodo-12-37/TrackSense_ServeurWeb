@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using TrackSense.API.Entities;
 namespace TrackSense.API.Services.DTO
 {
+        [Table("CompletedRideStatistics")]
     public class CompletedRideStatisticsDTO
     {
         [Required]

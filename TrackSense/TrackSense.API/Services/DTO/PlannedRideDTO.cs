@@ -4,6 +4,7 @@ using TrackSense.API.Entities;
 
 namespace TrackSense.API.Services.DTO
 {
+    [Table("PlannedRide")]
     public class PlannedRideDTO
     {
         [Key]

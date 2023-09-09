@@ -202,7 +202,7 @@ namespace TrackSense.API.Services.ServiceRides
             {
                 throw new ArgumentNullException(nameof(p_userLogin));
             }
-            return m_context.UserDTOs.Any(u => u.UserLogin==p_userLogin);
+            return m_context.UserDTOs.Any(u => u.UserName==p_userLogin);
         }
 
         private bool plannedRideIsExist(Guid p_plannedRideId)

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using TrackSense.API.Entities;
 
 namespace TrackSense.API.Services.DTO
-{
+{ [Table("address")]
     public class AddressDTO
     {
         [Key]
