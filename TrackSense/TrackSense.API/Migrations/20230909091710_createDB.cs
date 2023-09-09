@@ -19,8 +19,8 @@ namespace TrackSense.API.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Id = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     NormalizedName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
                 },
@@ -86,7 +86,7 @@ namespace TrackSense.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    RoleId = table.Column<string>(type: "varchar(50)", nullable: false),
                     ClaimType = table.Column<string>(type: "longtext", nullable: true),
                     ClaimValue = table.Column<string>(type: "longtext", nullable: true)
                 },
@@ -155,18 +155,17 @@ namespace TrackSense.API.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(100)", nullable: false),
-                    UserLogin = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    FirstName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    LastName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Id = table.Column<string>(type: "varchar(50)", nullable: false),
+                    UserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: true),
-                    CodePostal = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    CodePostal = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: true),
                     AddressDTOAddressId = table.Column<int>(type: "int", nullable: false),
-                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     PasswordHash = table.Column<string>(type: "longtext", nullable: true),
                     SecurityStamp = table.Column<string>(type: "longtext", nullable: true),
@@ -249,7 +248,7 @@ namespace TrackSense.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(50)", nullable: false),
                     ClaimType = table.Column<string>(type: "longtext", nullable: true),
                     ClaimValue = table.Column<string>(type: "longtext", nullable: true)
                 },
@@ -269,10 +268,10 @@ namespace TrackSense.API.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "varchar(100)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "varchar(100)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "varchar(50)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "varchar(50)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "longtext", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(100)", nullable: false)
+                    UserId = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -290,8 +289,8 @@ namespace TrackSense.API.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(100)", nullable: false),
-                    RoleId = table.Column<string>(type: "varchar(100)", nullable: false)
+                    UserId = table.Column<string>(type: "varchar(50)", nullable: false),
+                    RoleId = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {

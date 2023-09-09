@@ -6,7 +6,7 @@ using TrackSense.API.Services.DTO;
 namespace TrackSense.API.Data
 {
     public class ApplicationDbContext 
-        : IdentityDbContext<UserDTO,IdentityRole,string>
+        : IdentityDbContext<UserDTO>
     {
         public DbSet<UserDTO> UserDTOs { get; set; }
         public DbSet<LocationDTO> LocationDTOs { get; set; }

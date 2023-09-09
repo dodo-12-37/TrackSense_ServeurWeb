@@ -10,6 +10,7 @@ using Org.BouncyCastle.Crypto.Macs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TrackSense.API.Services.ServiceComptes;
 
 namespace TrackSense.API
 {
@@ -28,6 +29,7 @@ namespace TrackSense.API
 
             builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
             builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();
+            builder.Services.AddScoped<IDepotCompteUser, DepotCompteUser>();
 
             builder.Services.AddScoped<ManipulationUsers>();
             builder.Services.AddScoped<ManipulationRides>();
