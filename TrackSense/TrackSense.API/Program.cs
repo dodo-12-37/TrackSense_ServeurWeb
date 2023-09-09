@@ -6,6 +6,7 @@ using TrackSense.API.Services.ServiceUsers;
 using TrackSense.API.Services.ServiceRides;
 using Microsoft.AspNetCore.Identity;
 using TrackSense.API.Services.DTO;
+using Org.BouncyCastle.Crypto.Macs;
 
 namespace TrackSense.API
 {
@@ -37,6 +38,8 @@ namespace TrackSense.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             var app = builder.Build();
 
