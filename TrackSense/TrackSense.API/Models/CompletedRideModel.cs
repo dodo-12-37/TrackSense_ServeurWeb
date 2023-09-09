@@ -6,7 +6,7 @@ namespace TrackSense.API.Models
     {
         public string UserLogin { get; set; }
         public Guid CompletedRideId { get; set; }
-        public Guid? PlannedRideId { get; set; }
+        public PlannedRide PlannedRide { get; set; }
         public List<CompletedRidePointModel>? CompletedRidePoints { get; set; }
         public CompletedRideStatisticsModel Statistics { get; set; }
 
@@ -19,13 +19,13 @@ namespace TrackSense.API.Models
         {
             this.CompletedRideId = p_completedRide.CompletedRideId;
 
-            if (p_completedRide.PlannedRideId != null)
+            if (p_completedRide.PlannedRide != null)
             {
-                this.PlannedRideId = p_completedRide.PlannedRideId;
+                this.PlannedRide = p_completedRide.PlannedRide;
             }
             else
             {
-                this.PlannedRideId = null;
+                this.PlannedRide = null;
             }
 
             if (p_completedRide.CompletedRidePoints != null)
@@ -43,7 +43,7 @@ namespace TrackSense.API.Models
             return new CompletedRide
             {
                 CompletedRideId = this.CompletedRideId,
-                PlannedRideId = this.PlannedRideId,
+                PlannedRide = this.PlannedRide,
                 CompletedRidePoints = this.CompletedRidePoints?
                     .Select(point => point.ToEntity())
                     .ToList(),

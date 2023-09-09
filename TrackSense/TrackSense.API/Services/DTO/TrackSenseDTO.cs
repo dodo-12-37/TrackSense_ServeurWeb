@@ -1,7 +1,9 @@
-﻿using TrackSense.API.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Services.DTO
 {
+    [Table("TrackSense")]
     public class TrackSenseDTO
     {
         public TrackSenseDTO()
