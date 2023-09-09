@@ -4,6 +4,8 @@ using TrackSense.API.Entities.Interfaces;
 using TrackSense.API.Data;
 using TrackSense.API.Services.ServiceUsers;
 using TrackSense.API.Services.ServiceRides;
+using Microsoft.AspNetCore.Identity;
+using TrackSense.API.Services.DTO;
 
 namespace TrackSense.API
 {
@@ -19,6 +21,9 @@ namespace TrackSense.API
                             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString));
             Console.WriteLine("Connection String: " + connectionString);
+
+            builder.Services.AddIdentity<UserDTO,IdentityRole>()
+                            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
             builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();
@@ -52,6 +57,8 @@ namespace TrackSense.API
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseAuthentication();
 
             app.MapControllers();
 

@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TrackSense.API.Services.DTO;
 
 namespace TrackSense.API.Data
 {
     public class ApplicationDbContext 
-        : DbContext
+        : IdentityDbContext<UserDTO,IdentityRole,string>
     {
         public DbSet<UserDTO> UserDTOs { get; set; }
         public DbSet<LocationDTO> LocationDTOs { get; set; }
@@ -20,6 +22,7 @@ namespace TrackSense.API.Data
         {
             modelBuilder.Entity<CompletedRidePointDTO>().HasKey(c => new { c.CompletedRideId, c.LocationId });
             modelBuilder.Entity<PlannedRidePointDTO>().HasKey(c => new { c.PlannedRideId, c.LocationId });
+
 
             base.OnModelCreating(modelBuilder);
         }
