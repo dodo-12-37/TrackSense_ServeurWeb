@@ -16,9 +16,10 @@ namespace TrackSense.API.Controllers
         {
             m_depotUser = _depotUser;
         }
- 
+
 
         // POST api/<CompteUsersController>
+
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp(SignUpModel p_signUpModel)
         {
@@ -31,7 +32,7 @@ namespace TrackSense.API.Controllers
             {
                 return BadRequest(result.Errors);
             }
-            return Ok(result.Succeeded);
+            return CreatedAtAction(nameof(SignUp), result);
         }
       
 

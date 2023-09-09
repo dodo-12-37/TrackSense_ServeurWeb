@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace TrackSense.API.Migrations
 {
     /// <inheritdoc />
-    public partial class createDB : Migration
+    public partial class create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -156,14 +156,15 @@ namespace TrackSense.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(50)", nullable: false),
-                    UserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    UserLogin = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    FirstName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    LastName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: true),
-                    CodePostal = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    CodePostal = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: true),
                     AddressDTOAddressId = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),

@@ -10,7 +10,7 @@ namespace TrackSense.API.Services.DTO
     {
         [Key]
         [MaxLength(50)]
-        public string UserName { get; set; }
+        public string UserLogin { get; set; }
         [MaxLength(100)]
         public string ?FirstName { get; set; }
         [MaxLength(100)]
@@ -56,7 +56,7 @@ namespace TrackSense.API.Services.DTO
         {
             return new User()
             {
-                UserLogin = this.UserName,
+                UserLogin = this.UserLogin,
                 UserFirstName = this.FirstName,
                 UserLastName = this.LastName,
                /* UserPhoneNumber = this.PhoneNumber,*/

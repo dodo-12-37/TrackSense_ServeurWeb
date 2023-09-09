@@ -30,9 +30,10 @@ namespace TrackSense.API.Services.ServiceComptes
                 FirstName = p_model.FirstName,
                 LastName = p_model.LastName,
                 Email = p_model.Email,
-                UserName = p_model.UserLogin
+                UserLogin = p_model.UserLogin,
+                UserName = p_model.UserLogin,  
+                
             };
-            await _userManager.SetUserNameAsync(userDTO, userDTO.UserName);
             return await _userManager.CreateAsync(userDTO, p_model.Password);
         }
         public async Task<string> SignInAsync(SignInModel p_model)
@@ -49,20 +50,21 @@ namespace TrackSense.API.Services.ServiceComptes
                 {
                     return string.Format("le mot de passe ou le nom d'utilisateur est incorrect");
                 }
-                var tokenDescriptor = new SecurityTokenDescriptor
+                var authClaims = new List<Claim>
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                    new Claim("UserID",user.Id.ToString())
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(30),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])),
-
-                                                                SecurityAlgorithms.HmacSha256Signature)
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                return tokenHandler.WriteToken(securityToken);
+                var authenKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+                var token = new JwtSecurityToken(
+                    issuer: _configuration["JWT:ValidIssuer"],
+                    audience: _configuration["JWT:ValidAudience"],
+                    expires: DateTime.Now.AddYears(1),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(authenKey, SecurityAlgorithms.HmacSha256)
+                );
+
+                return new JwtSecurityTokenHandler().WriteToken(token);
             }
             catch (Exception e)
             {

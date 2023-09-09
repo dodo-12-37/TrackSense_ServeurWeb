@@ -11,8 +11,8 @@ using TrackSense.API.Data;
 namespace TrackSense.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230909091710_createDB")]
-    partial class createDB
+    [Migration("20230909191413_create")]
+    partial class create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -445,6 +445,10 @@ namespace TrackSense.API.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserLogin")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
