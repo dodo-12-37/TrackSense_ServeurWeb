@@ -8,19 +8,15 @@ namespace TrackSense.API.Services.DTO
     [Table("CompletedRide")]
     public class CompletedRideDTO
     {
-        [Key]
-        [Required]
-        public Guid CompletedRideId { get; set; }
+        public Guid CompletedRideId { get; set; } 
 
-        [ForeignKey(nameof(UserLogin))]
-        [Required]
-        public string UserLogin { get; set; }=string.Empty;
+        public string? UserLogin { get; set; }
 
-        [ForeignKey(nameof(PlannedRideId))]
         public Guid? PlannedRideId { get; set; } = Guid.Empty;
         public virtual PlannedRideDTO? PlannedRide { get; set; } = null;
         public virtual List<CompletedRidePointDTO>? CompletedRidePoints { get; set; }
         public virtual CompletedRideStatisticsDTO Statistics { get; set; } = null;
+        public virtual User? UserLoginNavigation { get; set; }
 
         public CompletedRideDTO()
         {

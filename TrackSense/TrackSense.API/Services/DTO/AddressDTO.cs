@@ -6,21 +6,29 @@ namespace TrackSense.API.Services.DTO
 { [Table("address")]
     public class AddressDTO
     {
-        [Key]
-        public int AddressId { get; set; } = 0;
+        public int AddressId { get; set; }
 
-        [ForeignKey("LocationId")]
-        public int LocationId { get; set; } = 0;
-        public string AppartmentNumber { get; set; }
-        public string StreetNumber { get; set; }
-        public string StreetName { get; set; }
-        public string ZipCode { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
+        public int? LocationId { get; set; }
 
+        public string? AppartmentNumber { get; set; }
 
-        public virtual LocationDTO LocationDTO { get; set; }
+        public string? StreetNumber { get; set; }
+
+        public string? StreetName { get; set; }
+
+        public string? ZipCode { get; set; }
+
+        public string? City { get; set; }
+
+        public string? State { get; set; }
+
+        public string? Country { get; set; }
+
+        public virtual ICollection<InterestPointDTO> Interestpoints { get; set; } = new List<InterestPointDTO>();
+
+        public virtual LocationDTO? Location { get; set; }
+
+        public virtual ICollection<UserDTO> Users { get; set; } = new List<UserDTO>();
         public AddressDTO() { }
         public Address ToEntity()
         {
@@ -33,7 +41,7 @@ namespace TrackSense.API.Services.DTO
                 City = this.City,
                 State = this.State,
                 Country = this.Country,
-                Location = this.LocationDTO.ToEntity()
+                Location = this.Location.ToEntity()
             };
         }
         public AddressDTO(Address p_address)
@@ -51,7 +59,7 @@ namespace TrackSense.API.Services.DTO
             this.City= p_address.City;
             this.State=p_address.State;
             this.Country= p_address.Country;
-            this.LocationDTO = p_address.Location==null
+            this.Location = p_address.Location==null
                 ? new LocationDTO()
                 : new LocationDTO(p_address.Location);
 
