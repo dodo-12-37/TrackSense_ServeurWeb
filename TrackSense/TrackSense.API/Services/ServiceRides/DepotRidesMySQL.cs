@@ -123,7 +123,10 @@ namespace TrackSense.API.Services.ServiceRides
 
         public CompletedRide? GetCompletedRideById(Guid p_completedRideId)
         {
-            return m_context.CompletedRideDTOs.FirstOrDefault(p => p.CompletedRideId==p_completedRideId)?.ToEntity();
+            var rideDTO = m_context.CompletedRideDTOs.Find(p_completedRideId);
+            var ride = rideDTO?.ToEntity();
+            return ride;
+            //return m_context.CompletedRideDTOs.FirstOrDefault(p => p.CompletedRideId==p_completedRideId)?.ToEntity();
         }
 
         public CompletedRideStatistics? GetCompletedRideStatistics(Guid p_completedRideId)
@@ -146,11 +149,11 @@ namespace TrackSense.API.Services.ServiceRides
                 completedRideDTO.CompletedRidePoints = p_completedRide.CompletedRidePoints.Select(p => new CompletedRidePointDTO(p)).ToList();
             }
 
-            if (p_completedRide.Statistics != null)
+          /*  if (p_completedRide.Statistics != null)
             {
                 completedRideDTO.Statistics = new CompletedRideStatisticsDTO(p_completedRide.Statistics);
             }
-
+*/
             if (p_completedRide.PlannedRide != null)
             {
                 completedRideDTO.PlannedRide = new PlannedRideDTO(p_completedRide.PlannedRide);
@@ -177,7 +180,7 @@ namespace TrackSense.API.Services.ServiceRides
             }
             PlannedRideDTO updatedPR = new PlannedRideDTO(p_plannedRide);
 
-            if (updatedPR.Statistics != null)
+         /*   if (updatedPR.Statistics != null)
             {
                 plannedRideToUpdate.Statistics=updatedPR.Statistics;
             }
@@ -188,7 +191,7 @@ namespace TrackSense.API.Services.ServiceRides
             if (updatedPR.RidePoints != null)
             {
                 plannedRideToUpdate.RidePoints=updatedPR.RidePoints;
-            }
+            }*/
             plannedRideToUpdate.IsFavorite = updatedPR.IsFavorite;
 
             m_context.Update(plannedRideToUpdate);

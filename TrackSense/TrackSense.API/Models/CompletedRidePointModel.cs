@@ -5,8 +5,8 @@ namespace TrackSense.API.Models
     public class CompletedRidePointModel
     {
         public LocationModel Location { get; set; }
-        public int RideStep { get; set; }
-        public double Temperature { get; set; }
+        public int ? RideStep { get; set; }
+        public double ? Temperature { get; set; }
         public DateTime DateTime { get; set; }
 
         public CompletedRidePointModel()
