@@ -8,15 +8,16 @@ namespace TrackSense.API.Services.DTO
     public class PlannedRideDTO
     {
         [Key]
-        [Required]
-        public Guid PlannedRideId { get; set; } = Guid.Empty;
-        [Required]
-        [ForeignKey(nameof(UserLogin))]
-        public string UserLogin { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public bool IsFavorite { get; set; } = false;
-        public virtual PlannedRideStatisticsDTO? Statistics { get; set; }
-        public virtual List<PlannedRidePointDTO>? RidePoints { get; set; }
+        public Guid PlannedRideId { get; set; }
+
+        [MaxLength(100)]
+        public string UserLogin { get; set; }
+
+        public string? Name { get; set; }
+        public bool IsFavorite { get; set; } = true;
+
+        [ForeignKey("UserLogin")]
+        public virtual UserDTO User { get; set; }
 
         public PlannedRideDTO()
         {
@@ -24,16 +25,18 @@ namespace TrackSense.API.Services.DTO
         }
         public PlannedRideDTO(PlannedRide p_plannedRide)
         {
+            if (string.IsNullOrEmpty(p_plannedRide.UserLogin))
+            {
+                throw new ArgumentNullException(nameof(p_plannedRide.UserLogin));
+            }
+            if(p_plannedRide.PlannedRideId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(p_plannedRide.PlannedRideId));
+            }
             this.PlannedRideId = p_plannedRide.PlannedRideId;
             this.UserLogin = p_plannedRide.UserLogin;
             this.Name = p_plannedRide.Name;
             this.IsFavorite = p_plannedRide.IsFavorite;
-            this.Statistics = p_plannedRide.Statistics == null 
-                ? new PlannedRideStatisticsDTO() 
-                : new PlannedRideStatisticsDTO(p_plannedRide.Statistics);
-            this.RidePoints = p_plannedRide.RidePoints == null
-                ? new List<PlannedRidePointDTO>()
-                : new List<PlannedRidePointDTO>(p_plannedRide.RidePoints.Select(p=>new PlannedRidePointDTO(p)));
         }
 
         public PlannedRide ToEntity()
@@ -44,7 +47,6 @@ namespace TrackSense.API.Services.DTO
                 UserLogin = this.UserLogin,
                 Name = this.Name,
                 IsFavorite = this.IsFavorite,
-                Statistics = this.Statistics.ToEntity()
             };
         }
     }
