@@ -8,11 +8,11 @@ namespace TrackSense.API.Services.DTO
     public class LocationDTO
     {
         [Key]
-        public int LocationId { get; set; } = 0;
-        public double Latitude { get; set; } = 0.0;
-        public double Longitude { get; set; } = 0.0;
-        public double Altitude { get; set; } = 0.0;
-        public double Speed { get; set; } = 0.0;
+        public Guid LocationId { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double? Altitude { get; set; }
+        public double? Speed { get; set; }
         public LocationDTO() { }
         public LocationDTO(Location p_location)
         {
@@ -26,6 +26,7 @@ namespace TrackSense.API.Services.DTO
         {
             return new Location()
             {
+                LocationId = this.LocationId,
                 Latitude = this.Latitude,
                 Longitude = this.Longitude,
                 Altitude = this.Altitude,

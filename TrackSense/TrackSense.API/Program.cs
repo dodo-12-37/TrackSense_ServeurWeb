@@ -6,11 +6,9 @@ using TrackSense.API.Services.ServiceUsers;
 using TrackSense.API.Services.ServiceRides;
 using Microsoft.AspNetCore.Identity;
 using TrackSense.API.Services.DTO;
-using Org.BouncyCastle.Crypto.Macs;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using TrackSense.API.Services.ServiceComptes;
+//using TrackSense.API.Services.ServiceComptes;
 
 namespace TrackSense.API
 {
@@ -24,12 +22,12 @@ namespace TrackSense.API
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString));
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             Console.WriteLine("Connection String: " + connectionString);
 
             builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
             builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();
-            builder.Services.AddScoped<IDepotCompteUser, DepotCompteUser>();
+            //builder.Services.AddScoped<IDepotCompteUser, DepotCompteUser>();
 
             builder.Services.AddScoped<ManipulationUsers>();
             builder.Services.AddScoped<ManipulationRides>();
@@ -43,11 +41,11 @@ namespace TrackSense.API
 
             builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-            builder.Services.AddIdentity<UserDTO,IdentityRole>()
+           /* builder.Services.AddIdentity<UserDTO,IdentityRole>()
                             .AddEntityFrameworkStores<ApplicationDbContext>()
-                            .AddDefaultTokenProviders();
+                            .AddDefaultTokenProviders();*/
             // Authentication
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         /*   builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                             .AddJwtBearer(options =>
                             {
                                 options.SaveToken = true;
@@ -63,7 +61,7 @@ namespace TrackSense.API
                                     ValidAudience = builder.Configuration["Jwt:ValidAudience"],
                                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
                                 };
-                            });
+                            });*/
 
             var app = builder.Build();
 
@@ -82,10 +80,10 @@ namespace TrackSense.API
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.UseRouting();
-
-            app.UseAuthorization();
-            
+/*
             app.UseAuthentication();
+            app.UseAuthorization();*/
+            
 
             app.MapControllers();
 

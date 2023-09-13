@@ -2,9 +2,23 @@
 {
     public class CompletedRidePoint
     {
-        public Location Location { get; set; }
-        public int? RideStep { get; set; }
-        public double? Temperature { get; set; }
-        public DateTime? DateTime { get; set; }
+        public Guid CompletedRideId { get; set; } = Guid.NewGuid();
+        public Location Location { get; set; } = new Location();
+        public int? RideStep { get; set; } = 0;
+        public double? Temperature { get; set; } = 0;
+        public DateTime DateTime { get; set; } = DateTime.UtcNow;
+
+        public CompletedRidePoint()
+        {
+            
+        }
+        public CompletedRidePoint(Location p_location)
+        {
+            if (p_location == null)
+            {
+                throw new ArgumentNullException(nameof(p_location));
+            }
+            Location = p_location;
+        }
     }
 }

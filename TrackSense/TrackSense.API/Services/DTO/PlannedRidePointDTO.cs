@@ -1,34 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TrackSense.API.Entities;
 
 namespace TrackSense.API.Services.DTO
 {
     [Table("PlannedRidePoint")]
+    [PrimaryKey(nameof(PlannedRideId),nameof(LocationId))]
     public class PlannedRidePointDTO
     {
-        [ForeignKey("PlannedRideId")]
-        public Guid PlannedRideId { get; set; } = Guid.Empty;
+        public Guid PlannedRideId { get; set; }
+
+        public Guid LocationId { get; set; }
+        public int? RideStep { get; set; }
+        public double? Temperature { get; set; }
+
         [ForeignKey("LocationId")]
-        public int LocationId { get; set; } = 0;
-        public int RideStep { get; set; } = 0;
-        public double Temperature { get; set; } = 0.0;
+        public virtual LocationDTO Location { get; set; }
 
-        public virtual LocationDTO LocationDTO { get; set; }
-
+        [ForeignKey("PlannedRideId")]
+        public virtual PlannedRideDTO PlannedRide { get; set; }
         public PlannedRidePointDTO()
         {
             
         }
         public PlannedRidePointDTO(PlannedRidePoint p_plannedRidePoint)
         {
-            this.PlannedRideId = p_plannedRidePoint.PlannedRideId;
-            this.LocationId = p_plannedRidePoint.Location.LocationId;
+            if(p_plannedRidePoint.Location == null)
+            {
+                throw new NullReferenceException(nameof(p_plannedRidePoint.Location));
+            }
+            this.PlannedRideId = new Guid();
+            this.Location = new LocationDTO(p_plannedRidePoint.Location);
+            this.LocationId = this.Location.LocationId;
             this.RideStep = p_plannedRidePoint.RideStep;
-            this.Temperature = p_plannedRidePoint.Temperature;
-            this.LocationDTO = p_plannedRidePoint.Location == null
-                ? new LocationDTO()
-                : new LocationDTO(p_plannedRidePoint.Location);
 
         }
 
@@ -37,9 +42,8 @@ namespace TrackSense.API.Services.DTO
             return new PlannedRidePoint()
             {
                 PlannedRideId = this.PlannedRideId,
-                Location = this.LocationDTO.ToEntity(),
+                Location = this.Location.ToEntity(),
                 RideStep = this.RideStep,
-                Temperature = this.Temperature
             };
         }
     }

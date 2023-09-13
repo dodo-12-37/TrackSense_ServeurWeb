@@ -2,10 +2,10 @@
 {
     public class Location
     {
-        public int LocationId { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public double Altitude { get; set; }
-        public double Speed { get; set; }
+        public Guid LocationId { get; set; } = Guid.NewGuid();
+        public double Latitude { get; set; } = 0;
+        public double Longitude { get; set; }= 0;
+        public double? Altitude { get; set; }
+        public double? Speed { get; set; } = 0;
     }
 }
