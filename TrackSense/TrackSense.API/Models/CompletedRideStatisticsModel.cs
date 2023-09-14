@@ -1,4 +1,6 @@
-﻿using TrackSense.API.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
@@ -8,7 +10,7 @@ namespace TrackSense.API.Models
         public double ? MaximumSpeed { get; set; }
         public double? Distance { get; set; }
         public int? Calories { get; set; }
-        public DateTime? Duration { get; set; }
+         public TimeSpan? Duration { get; set; }
         public int? Falls { get; set; }
 
         public CompletedRideStatisticsModel()

@@ -29,10 +29,11 @@ namespace TrackSense.API.Services.DTO
         public CompletedRidePointDTO(CompletedRidePoint p_completedRidePoint) 
         
         {
+            this.CompletedRideId = p_completedRidePoint.CompletedRideId;
             this.Location = new LocationDTO(p_completedRidePoint.Location);
             this.RideStep = p_completedRidePoint?.RideStep;
             this.Temperature = p_completedRidePoint?.Temperature;
-            this.Date = p_completedRidePoint.DateTime;
+            this.Date = p_completedRidePoint.Date;
         }
 
         public CompletedRidePoint ToEntity()
@@ -42,7 +43,7 @@ namespace TrackSense.API.Services.DTO
                 Location = this.Location.ToEntity(),
                 RideStep = this.RideStep,
                 Temperature = this.Temperature,
-                DateTime = this.Date
+                Date = this.Date
             };
         }
     }

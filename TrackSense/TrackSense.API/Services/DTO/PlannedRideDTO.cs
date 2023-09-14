@@ -14,7 +14,7 @@ namespace TrackSense.API.Services.DTO
         public string UserLogin { get; set; }
 
         public string? Name { get; set; }
-        public bool IsFavorite { get; set; } = true;
+        public bool ?IsFavorite { get; set; } = true;
 
         [ForeignKey("UserLogin")]
         public virtual UserDTO User { get; set; }
