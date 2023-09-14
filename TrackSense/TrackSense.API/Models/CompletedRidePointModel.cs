@@ -19,7 +19,7 @@ namespace TrackSense.API.Models
             this.Location = new LocationModel(p_point.Location);
             this.RideStep = p_point.RideStep;
             this.Temperature = p_point.Temperature;
-            this.DateTime = p_point.DateTime;
+            this.DateTime = p_point.Date;
         }
 
         public CompletedRidePoint ToEntity()
@@ -29,7 +29,7 @@ namespace TrackSense.API.Models
                 Location = this.Location.ToEntity(),
                 RideStep = this.RideStep,
                 Temperature = this.Temperature,
-                DateTime = this.DateTime
+                Date = this.DateTime
             };
         }
     }

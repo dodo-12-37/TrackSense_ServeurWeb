@@ -6,13 +6,13 @@
         public Location Location { get; set; } = new Location();
         public int? RideStep { get; set; } = 0;
         public double? Temperature { get; set; } = 0;
-        public DateTime DateTime { get; set; } = DateTime.UtcNow;
+        public DateTime Date { get; set; } = DateTime.UtcNow;
 
         public CompletedRidePoint()
         {
             
         }
-        public CompletedRidePoint(Location p_location)
+        public CompletedRidePoint(Entities.Location p_location)
         {
             if (p_location == null)
             {

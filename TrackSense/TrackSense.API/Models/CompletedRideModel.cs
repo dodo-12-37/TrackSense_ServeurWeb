@@ -8,7 +8,7 @@ namespace TrackSense.API.Models
         public Guid CompletedRideId { get; set; }
         public PlannedRide PlannedRide { get; set; }
         public List<CompletedRidePointModel>? CompletedRidePoints { get; set; }
-        public CompletedRideStatisticsModel Statistics { get; set; }
+        public CompletedRideStatisticsModel ?Statistics { get; set; }
 
         public CompletedRideModel()
         {
@@ -17,6 +17,7 @@ namespace TrackSense.API.Models
 
         public CompletedRideModel(CompletedRide p_completedRide)
         {
+            this.UserLogin = p_completedRide.UserLogin;
             this.CompletedRideId = p_completedRide.CompletedRideId;
 
             if (p_completedRide.PlannedRide != null)
@@ -35,7 +36,11 @@ namespace TrackSense.API.Models
                     .ToList();
             }
 
-            this.Statistics = new CompletedRideStatisticsModel(p_completedRide.Statistics);
+            if(p_completedRide.Statistics != null)
+            {
+
+                this.Statistics = new CompletedRideStatisticsModel(p_completedRide.Statistics);
+            }
         }
 
         public CompletedRide ToEntity()
@@ -47,7 +52,7 @@ namespace TrackSense.API.Models
                 CompletedRidePoints = this.CompletedRidePoints?
                     .Select(point => point.ToEntity())
                     .ToList(),
-                Statistics = this.Statistics.ToEntity()
+                Statistics = this.Statistics?.ToEntity()
             };
         }
     }

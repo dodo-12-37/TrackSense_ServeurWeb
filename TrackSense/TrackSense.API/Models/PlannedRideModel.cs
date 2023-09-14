@@ -5,9 +5,9 @@ namespace TrackSense.API.Models
     public class PlannedRideModel
     {
         public Guid PlannedRideId { get; set; }
-        public string Name { get; set; }
-        public bool IsFavorite { get; set; }
-        public PlannedRideStatisticsModel Statistics { get; set; }
+        public string? Name { get; set; }
+        public bool ?IsFavorite { get; set; }
+        public PlannedRideStatisticsModel? Statistics { get; set; }
         public List<PlannedRidePointModel>? RidePoints { get; set; }
 
         public PlannedRideModel()
@@ -18,9 +18,12 @@ namespace TrackSense.API.Models
         public PlannedRideModel(PlannedRide p_plannedRide)
         {
             this.PlannedRideId = p_plannedRide.PlannedRideId;
-            this.Name = p_plannedRide.Name;
-            this.IsFavorite = p_plannedRide.IsFavorite;
-            this.Statistics = new PlannedRideStatisticsModel(p_plannedRide.Statistics);
+            this.Name = p_plannedRide?.Name;
+            this.IsFavorite = p_plannedRide?.IsFavorite;
+            if (p_plannedRide.Statistics != null)
+            {
+                this.Statistics = new PlannedRideStatisticsModel(p_plannedRide.Statistics);
+            }
 
             if (p_plannedRide.RidePoints != null)
             {
@@ -37,7 +40,7 @@ namespace TrackSense.API.Models
                 PlannedRideId = this.PlannedRideId,
                 Name = this.Name,
                 IsFavorite = this.IsFavorite,
-                Statistics = this.Statistics.ToEntity(),
+                Statistics = this.Statistics?.ToEntity(),
                 RidePoints = this.RidePoints?
                     .Select(point => point.ToEntity())
                     .ToList()

@@ -11,15 +11,15 @@ namespace TrackSense.API.Services.DTO
     {
         public Guid PlannedRideId { get; set; }
 
-        public Guid LocationId { get; set; }
+        public int LocationId { get; set; }
         public int? RideStep { get; set; }
         public double? Temperature { get; set; }
 
         [ForeignKey("LocationId")]
-        public virtual LocationDTO Location { get; set; }
+        public LocationDTO Location { get; set; }
 
         [ForeignKey("PlannedRideId")]
-        public virtual PlannedRideDTO PlannedRide { get; set; }
+        public PlannedRideDTO PlannedRide { get; set; }
         public PlannedRidePointDTO()
         {
             

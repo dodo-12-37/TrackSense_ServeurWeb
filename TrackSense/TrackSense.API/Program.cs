@@ -22,11 +22,17 @@ namespace TrackSense.API
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<TracksenseContext>(options => options.UseSqlServer(connectionString));
             Console.WriteLine("Connection String: " + connectionString);
+            //Database : MySQL
+            /*builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
+            builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();*/
 
-            builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
-            builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();
+            // Database : SQL_Server
+            builder.Services.AddScoped<IDepotUsers, DepotUsersSQL_Server>();
+            builder.Services.AddScoped<IDepotRides, DepotRidesSQL_Server>();
+
             //builder.Services.AddScoped<IDepotCompteUser, DepotCompteUser>();
 
             builder.Services.AddScoped<ManipulationUsers>();

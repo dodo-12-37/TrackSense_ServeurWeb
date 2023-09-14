@@ -17,12 +17,12 @@ namespace TrackSense.API.Services.DTO
         public Guid? PlannedRideId { get; set; } = Guid.Empty;
 
         [ForeignKey("UserLogin")]
-        public virtual UserDTO User { get; set; }
+        public UserDTO User { get; set; }
 
         [ForeignKey(nameof(PlannedRideId))]
-        public virtual PlannedRideDTO ?PlannedRide { get; set; }
+        public PlannedRideDTO ?PlannedRide { get; set; }
 
-        public virtual List<CompletedRidePointDTO> ?CompletedRidePoints { get; set; }
+        public ICollection<CompletedRidePointDTO> ?CompletedRidePoints { get; set; }
 
         public CompletedRideDTO()
         {

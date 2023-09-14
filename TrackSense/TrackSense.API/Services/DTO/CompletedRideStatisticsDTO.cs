@@ -14,7 +14,8 @@ namespace TrackSense.API.Services.DTO
         public int? Falls { get; set; }
         public int? Calories { get; set; }
         public double? Distance { get; set; }
-        public DateTime? Duration { get; set; }
+        
+        public TimeSpan? Duration { get; set; }
 
         [ForeignKey("CompletedRideId")]
         public virtual CompletedRide CompletedRide { get; set; }
