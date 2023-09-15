@@ -12,7 +12,7 @@ public class CompletedRide
 
     public string? PlannedRideId { get; set; }
 
-    public virtual CompletedRideStatistic? CompletedRideStatistic { get; set; }
+    public virtual DTOs.CompletedRideStatistic? CompletedRideStatistic { get; set; }
     public virtual ICollection<DTOs.CompletedRidePoint> CompletedRidePoints { get; set; } = new List<DTOs.CompletedRidePoint>();
     
     [ForeignKey(nameof(UserLogin))]
@@ -39,6 +39,7 @@ public class CompletedRide
         {
             throw new InvalidOperationException("Id du CompletedRide ne doit pas être null ni vide");
         }
+
         this.UserLogin = p_completedRide.UserLogin;
         this.CompletedRideId =p_completedRide.CompletedRideId;
 
@@ -47,9 +48,20 @@ public class CompletedRide
         if (p_completedRide!.CompletedRidePoints != null)
         {
             this.CompletedRidePoints = p_completedRide.CompletedRidePoints
-                                                        .Select(point => new CompletedRidePoint(point))
+                                                        .Select(point => new DTOs.CompletedRidePoint(point))
                                                         .ToList();
         }
+
+        if(p_completedRide.Statistics != null)
+        {
+            this.CompletedRideStatistic = new DTOs.CompletedRideStatistic(p_completedRide.Statistics);
+        }
+
+        else
+        {
+            this.CompletedRideStatistic = CalculateStatistic();
+        }
+       
     }
 
     public Entities.CompletedRide ToEntity()
@@ -59,7 +71,27 @@ public class CompletedRide
             CompletedRideId = this.CompletedRideId,
             UserLogin = this.UserLogin,
             CompletedRidePoints = this.CompletedRidePoints.Select(p => p.ToEntity()).ToList(),
-            Statistics = this.CompletedRideStatistic?.ToEntity()
+            
+            Statistics = this.CompletedRideStatistic != null
+                        ? this.CompletedRideStatistic.ToEntity()
+                        : CalculateStatistic().ToEntity(),
+        };
+    }
+
+    private DTOs.CompletedRideStatistic CalculateStatistic()
+    {
+       
+
+        return new DTOs.CompletedRideStatistic()
+        {
+
+            CompletedRideId = this.CompletedRideId,
+
+            AvgSpeed =this.CompletedRidePoints!.Average(p => p.Location.Speed),
+
+            MaxSpeed = this.CompletedRidePoints!.Max(p => p.Location.Speed),
+
+            Duration = this.CompletedRidePoints!.Max(p => p.Date) - this.CompletedRidePoints!.Min(p => p.Date)
         };
     }
 }
