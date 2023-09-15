@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class Location
+[Table("Location")]
+public class Location
 {
+    [Key]
     public int LocationId { get; set; }
 
     public double Latitude { get; set; }
@@ -15,7 +19,7 @@ public partial class Location
 
     public double? Speed { get; set; }
 
-    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
+    public virtual Address Address { get; set; } = new Address();
 
     public virtual ICollection<PlannedRidePoint> PlannedRidePoints { get; set; } = new List<PlannedRidePoint>();
 
@@ -27,6 +31,10 @@ public partial class Location
     }
     public Location(Entities.Location p_location)
     {
+        if (p_location.Address!=null)
+        {
+            this.Address = new Address( p_location.Address);
+        }
         this.LocationId = p_location.LocationId;
         this.Latitude = p_location.Latitude;
         this.Longitude = p_location.Longitude;
@@ -41,7 +49,8 @@ public partial class Location
             Latitude = this.Latitude,
             Longitude = this.Longitude,
             Altitude = this.Altitude,
-            Speed = this.Speed
+            Speed = this.Speed,
+            Address = this.Address.ToEntity()
         };
     }
 }

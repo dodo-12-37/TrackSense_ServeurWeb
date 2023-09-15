@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class PlannedRideStatistic
+[Table("PlannedRideStatistic")]
+public class PlannedRideStatistic
 {
-    public Guid PlannedRideId { get; set; }
+    [Key]
+    public string PlannedRideId { get; set; } = null!;
 
     public double? AverageSpeed { get; set; }
 
@@ -20,7 +22,8 @@ public partial class PlannedRideStatistic
 
     public double? Distance { get; set; }
     
-    public DateTime? Duration { get; set; }
+    public TimeSpan? Duration { get; set; }
 
+    [ForeignKey(nameof(PlannedRideId))]
     public virtual PlannedRide PlannedRide { get; set; } = null!;
 }

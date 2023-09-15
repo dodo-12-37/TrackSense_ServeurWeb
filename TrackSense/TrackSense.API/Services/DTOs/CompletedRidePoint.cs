@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class CompletedRidePoint
+[Table("completedridepoint")]
+public class CompletedRidePoint
 {
-    public Guid CompletedRideId { get; set; }
+    [Key]
+    public string CompletedRideId { get; set; }
 
     public int LocationId { get; set; }
 
@@ -15,8 +18,10 @@ public partial class CompletedRidePoint
 
     public DateTime Date { get; set; }
 
+    [ForeignKey(nameof(CompletedRideId))]
     public virtual CompletedRide CompletedRide { get; set; } = null!;
-
+    
+    [ForeignKey(nameof(LocationId))]
     public virtual Location Location { get; set; } = null!;
     public CompletedRidePoint()
     {
@@ -28,10 +33,7 @@ public partial class CompletedRidePoint
         {
             throw new ArgumentException(nameof(p_completedRidePoint));
         }
-
         this.CompletedRideId = p_completedRidePoint.CompletedRideId;
-        this.CompletedRide.CompletedRideId = this.CompletedRideId;
-
         this.Location = new Location(p_completedRidePoint.Location);
         this.LocationId = this.Location.LocationId;
         this.RideStep = p_completedRidePoint.RideStep;

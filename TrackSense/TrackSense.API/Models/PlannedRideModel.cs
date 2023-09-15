@@ -4,7 +4,7 @@ namespace TrackSense.API.Models
 {
     public class PlannedRideModel
     {
-        public Guid PlannedRideId { get; set; }
+        public string PlannedRideId { get; set; }
         public string? Name { get; set; }
         public bool ?IsFavorite { get; set; }
         public PlannedRideStatisticsModel? Statistics { get; set; }

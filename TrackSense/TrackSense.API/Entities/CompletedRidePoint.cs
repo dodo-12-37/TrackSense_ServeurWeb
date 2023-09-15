@@ -2,7 +2,7 @@
 {
     public class CompletedRidePoint
     {
-        public Guid CompletedRideId { get; set; } = Guid.NewGuid();
+        public string CompletedRideId { get; set; } = null!;
         public Location Location { get; set; } = new Location();
         public int? RideStep { get; set; } = 0;
         public double? Temperature { get; set; } = 0;

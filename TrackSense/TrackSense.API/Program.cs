@@ -5,7 +5,6 @@ using TrackSense.API.Data;
 using TrackSense.API.Services.ServiceUsers;
 using TrackSense.API.Services.ServiceRides;
 using Microsoft.AspNetCore.Identity;
-using TrackSense.API.Services.DTO;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 //using TrackSense.API.Services.ServiceComptes;
@@ -22,16 +21,16 @@ namespace TrackSense.API
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-            builder.Services.AddDbContext<TracksenseContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<TracksenseContext>(options => options.UseMySQL(connectionString));
+            //builder.Services.AddDbContext<TracksenseContext>(options => options.UseSqlServer(connectionString));
             Console.WriteLine("Connection String: " + connectionString);
             //Database : MySQL
             /*builder.Services.AddScoped<IDepotUsers, DepotUsersMySQL>();
             builder.Services.AddScoped<IDepotRides, DepotRidesMySQL>();*/
 
-            // Database : SQL_Server
-            builder.Services.AddScoped<IDepotUsers, DepotUsersSQL_Server>();
-            builder.Services.AddScoped<IDepotRides, DepotRidesSQL_Server>();
+            // Database : 
+            builder.Services.AddScoped<IDepotUsers, DepotUsers_MySQL>();
+            builder.Services.AddScoped<IDepotRides, DepotRides_MySQL>();
 
             //builder.Services.AddScoped<IDepotCompteUser, DepotCompteUser>();
 

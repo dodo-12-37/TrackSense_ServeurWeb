@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class CompletedRideStatistic
+[Table("CompletedRideStatistic")]
+public class CompletedRideStatistic
 {
-    public Guid CompletedRideId { get; private set; }
+    [Key]
+    public string CompletedRideId { get; private set; } = null!;
 
     public double? AvgSpeed { get; private set; }
 
@@ -19,14 +21,26 @@ public partial class CompletedRideStatistic
     public double? Distance { get; private set; }
     
     public TimeSpan? Duration { get; private set; }
-
+    
+    [ForeignKey("CompletedRideId")]
     public virtual CompletedRide CompletedRide { get; set; } = null!;
-
+    
     public CompletedRideStatistic()
     {
         
     }
-    public CompletedRideStatistic(CompletedRide p_completedRide)
+    public CompletedRideStatistic(Entities.CompletedRideStatistics p_completedRideStatistics)
+    {
+        this.CompletedRideId = p_completedRideStatistics.CompletedRideId;
+        this.MaxSpeed = p_completedRideStatistics.MaximumSpeed;
+        this.AvgSpeed = p_completedRideStatistics.AverageSpeed;
+        this.Falls = p_completedRideStatistics.Falls;
+        this.Calories = p_completedRideStatistics.Calories;
+        this.Distance = p_completedRideStatistics.Distance;
+        this.Duration = p_completedRideStatistics.Duration;
+        
+    }
+/*    public CompletedRideStatistic(CompletedRide p_completedRide)
     {
         if (p_completedRide == null)
         {
@@ -42,7 +56,7 @@ public partial class CompletedRideStatistic
         this.MaxSpeed = p_completedRide.CompletedRidePoints.Max(p => p.Location.Speed);
         
         this.Duration = p_completedRide.CompletedRidePoints.Max(p => p.Date) - p_completedRide.CompletedRidePoints.Min(p => p.Date);
-    }
+    }*/
 
     public Entities.CompletedRideStatistics ToEntity()
     {

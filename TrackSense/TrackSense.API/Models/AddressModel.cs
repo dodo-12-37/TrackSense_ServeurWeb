@@ -4,7 +4,7 @@ namespace TrackSense.API.Models
 {
     public class AddressModel
     {
-        public Guid AddressId { get; set; }
+        public int AddressId { get; set; }
         public LocationModel Location { get; set; }
         public string AppartmentNumber { get; set; }
         public string StreetNumber { get; set; }

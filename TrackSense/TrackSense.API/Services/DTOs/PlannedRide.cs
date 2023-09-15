@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class PlannedRide
+[Table("PlannedRide")]
+public class PlannedRide
 {
-    public Guid PlannedRideId { get; set; }
+    [Key]
+    public string PlannedRideId { get; set; }
 
     public string UserLogin { get; set; }
 
@@ -15,11 +19,12 @@ public partial class PlannedRide
 
     public virtual ICollection<CompletedRide> CompletedRides { get; set; } = new List<CompletedRide>();
 
-    public virtual ICollection<PlannedRidePoint> PlannedRidePoints { get; set; } = new List<PlannedRidePoint>();
+    public virtual ICollection <PlannedRidePoint> PlannedRidePoints { get; set; } = new List<PlannedRidePoint>();
 
-    public virtual PlannedRideStatistic? PlannedRideStatistic { get; set; }
+    public virtual PlannedRideStatistic PlannedRideStatistic { get; set; }
 
-    public virtual User? UserLoginNavigation { get; set; }
+    [ForeignKey(nameof(UserLogin))]	
+    public virtual User User { get; set; }
 
     public PlannedRide()
     {
@@ -31,7 +36,7 @@ public partial class PlannedRide
         {
             throw new ArgumentNullException(nameof(p_plannedRide.UserLogin));
         }
-        if (p_plannedRide.PlannedRideId == Guid.Empty)
+        if (p_plannedRide.PlannedRideId == "")
         {
             throw new ArgumentNullException(nameof(p_plannedRide.PlannedRideId));
         }

@@ -6,8 +6,8 @@ namespace TrackSense.API.Services.ServiceUsers
 {
     public class DepotUsersMySQL: IDepotUsers
     {
-        private readonly ApplicationDbContext m_context;
-        public DepotUsersMySQL(ApplicationDbContext p_applicationDbContext)
+        private readonly TracksenseContext m_context;
+        public DepotUsersMySQL(TracksenseContext p_applicationDbContext)
         {
             this.m_context = p_applicationDbContext;
         }

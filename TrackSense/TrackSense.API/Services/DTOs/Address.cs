@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using TrackSense.API.Services.DTO;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class Address
+[Table("Address")]
+public class Address
 {
-    public Guid AddressId { get; set; }
+    [Key]
+    public int AddressId { get; set; }
 
     public int? LocationId { get; set; }
 
@@ -24,9 +26,10 @@ public partial class Address
 
     public string? Country { get; set; }
 
-    public virtual ICollection<InterestPoint> InterestPoints { get; set; } = new List<InterestPoint>();
-
-    public virtual Location? Location { get; set; }
+    public virtual ICollection<InterestPoint> ? InterestPoints { get; set; } = new List<InterestPoint>();
+    [ForeignKey(nameof(LocationId))]
+    public virtual Location Location { get; set; }
+    public virtual User User { get; set; }
     public Address()
     {
         

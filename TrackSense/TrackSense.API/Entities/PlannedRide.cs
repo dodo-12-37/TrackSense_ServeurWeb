@@ -2,7 +2,7 @@
 {
     public class PlannedRide
     {
-        public Guid PlannedRideId { get; set; } = Guid.NewGuid();
+        public string PlannedRideId { get; set; } 
         public string UserLogin { get; set; } = string.Empty;
         public string? Name { get; set; } = null;
         public bool ?IsFavorite { get; set; } = null;

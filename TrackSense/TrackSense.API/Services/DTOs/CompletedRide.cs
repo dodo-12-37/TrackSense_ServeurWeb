@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TrackSense.API.Services.DTO;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class CompletedRide
+[Table("CompletedRide")]
+public class CompletedRide
 {
-    public Guid CompletedRideId { get; set; }
+    [Key]
+    public string CompletedRideId { get; set; }
 
     public string UserLogin { get; set; }
 
-    public Guid? PlannedRideId { get; set; }
+    public string? PlannedRideId { get; set; }
 
-    public virtual CompletedRideStatistic? CompletedRideStatistic { get; set; } = new CompletedRideStatistic();
-
-    public virtual ICollection<DTOs.CompletedRidePoint> CompletedRidePoints { get; set; }
+    public virtual CompletedRideStatistic? CompletedRideStatistic { get; set; }
+    public virtual ICollection<DTOs.CompletedRidePoint> CompletedRidePoints { get; set; } = new List<DTOs.CompletedRidePoint>();
     
-  /*  [NotMapped]
-    public virtual PlannedRide? PlannedRide { get; set; }*/
+    [ForeignKey(nameof(UserLogin))]
+    public virtual User User { get; set; }
+
+    [ForeignKey(nameof(PlannedRideId))]
+    public virtual PlannedRide PlannedRide { get; set; }
 
     public CompletedRide()
     {
@@ -34,7 +35,7 @@ public partial class CompletedRide
         {
             throw new NullReferenceException(nameof(p_completedRide.UserLogin));
         }
-        if (p_completedRide.CompletedRideId==Guid.Empty)
+        if (p_completedRide.CompletedRideId==string.Empty)
         {
             throw new InvalidOperationException("Id du CompletedRide ne doit pas être null ni vide");
         }
@@ -49,10 +50,6 @@ public partial class CompletedRide
                                                         .Select(point => new CompletedRidePoint(point))
                                                         .ToList();
         }
-
-
-        this.CompletedRideStatistic = new CompletedRideStatistic(this);
-
     }
 
     public Entities.CompletedRide ToEntity()

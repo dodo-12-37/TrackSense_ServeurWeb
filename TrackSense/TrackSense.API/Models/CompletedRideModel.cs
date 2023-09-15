@@ -5,7 +5,7 @@ namespace TrackSense.API.Models
     public class CompletedRideModel
     {
         public string UserLogin { get; set; }
-        public Guid CompletedRideId { get; set; }
+        public string CompletedRideId { get; set; }
         public PlannedRide PlannedRide { get; set; }
         public List<CompletedRidePointModel>? CompletedRidePoints { get; set; }
         public CompletedRideStatisticsModel ?Statistics { get; set; }

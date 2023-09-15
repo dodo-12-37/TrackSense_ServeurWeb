@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class UserToken
+[Table("UserToken")]
+public class UserToken
 {
+    [Key]
     public int UserTokenId { get; set; }
 
     public string UserLogin { get; set; } = null!;

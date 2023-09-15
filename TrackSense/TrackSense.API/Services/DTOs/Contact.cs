@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class Contact
+[Table("Contact")]
+public class Contact
 {
-    public Guid ContactId { get; set; }
+    [Key]
+    public int ContactId { get; set; }
 
     public string? UserLogin { get; set; }
 
     public string? Fullname { get; set; }
 
     public string? PhoneNumber { get; set; }
-
-    public virtual User? UserLoginNavigation { get; set; }
+    
+    [ForeignKey(nameof(UserLogin))]
+    public virtual User? User { get; set; }
 }

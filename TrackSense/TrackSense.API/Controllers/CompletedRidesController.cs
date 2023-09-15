@@ -38,7 +38,7 @@ namespace TrackSense.API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
-        public ActionResult<CompletedRideModel> Get(Guid p_completedRideId)
+        public ActionResult<CompletedRideModel> Get(string p_completedRideId)
         {
             ActionResult<CompletedRideModel> response;
 
@@ -46,7 +46,7 @@ namespace TrackSense.API.Controllers
             {
                 response = Unauthorized();
             }
-            else if (p_completedRideId == Guid.Empty)
+            else if (p_completedRideId == string.Empty)
             {
                 response = BadRequest();
             }

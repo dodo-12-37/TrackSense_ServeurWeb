@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using TrackSense.API.Services.DTOs;
 
 namespace TrackSense.API.Entities.Interfaces
 {
@@ -6,18 +7,26 @@ namespace TrackSense.API.Entities.Interfaces
     {
         // CompletedRide
         IEnumerable<CompletedRide> GetAllCompletedRidesByUser(string p_userLogin);
-        CompletedRide? GetCompletedRideById(Guid p_completedRideId);
+        CompletedRide? GetCompletedRideById(string p_completedRideId);
         void UpdateCompletedRide(CompletedRide p_completedRide);
-        void DeleteCompletedRideById(Guid p_completedRideId);
+        void DeleteCompletedRideById(string p_completedRideId);
         void AddCompletedRide(CompletedRide p_comletedRide);
-        CompletedRideStatistics? GetCompletedRideStatistics(Guid p_completedRideId);
-        
+
+        //CompletedRideStatisitics
+        CompletedRideStatistics? GetCompletedRideStatistics(string p_completedRideId);
+        void AddCompletedRideStatistics(CompletedRideStatistics p_completedRideStatistic);
+
+        //CompletedRidePoints
+        void AddCompletedRidePoint(CompletedRidePoint p_comletedRidePoint);
+        void UpdateCompletedRidePoint(CompletedRidePoint p_completedRidePoint);
+        void DeleteCompletedRidePoint(string p_completedRidePointId);
+
         // PlannedRide
         IEnumerable<PlannedRide> GetAllPlannedRidesByUser(string p_userLogin);
-        PlannedRide? GetPlannedRideById(Guid p_completedRideId);
+        PlannedRide? GetPlannedRideById(string p_completedRideId);
         void UpdatePlannedRide(PlannedRide p_plannedRide);
-        void DeletePlannedRideById(Guid p_plannedRideId);
+        void DeletePlannedRideById(string p_plannedRideId);
         void AddPlannedRide(PlannedRide p_plannedRide);
-        PlannedRideStatistics? GetAllPlannedRideStatistics(Guid p_plannedRideId);
+        PlannedRideStatistics? GetAllPlannedRideStatistics(string p_plannedRideId);
     }
 }

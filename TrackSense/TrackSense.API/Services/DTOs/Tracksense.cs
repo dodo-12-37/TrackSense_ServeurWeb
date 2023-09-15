@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-
-public partial class Tracksense
+[Table("Tracksense")]
+public class Tracksense
 {
-    public Guid TracksenseId { get; set; }
+    [Key]
+    public string TracksenseId { get; set; } = null!;
 
     public string? UserLogin { get; set; }
 
@@ -21,5 +24,6 @@ public partial class Tracksense
 
     public bool? IsStolen { get; set; }
 
-    public virtual User? UserLoginNavigation { get; set; }
+    [ForeignKey(nameof(UserLogin))]
+    public virtual User User { get; set; }= null!;
 }
