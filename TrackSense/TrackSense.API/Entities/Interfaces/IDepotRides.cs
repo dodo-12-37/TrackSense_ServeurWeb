@@ -20,6 +20,8 @@ namespace TrackSense.API.Entities.Interfaces
         void AddCompletedRidePoint(CompletedRidePoint p_comletedRidePoint);
         void UpdateCompletedRidePoint(CompletedRidePoint p_completedRidePoint);
         void DeleteCompletedRidePoint(string p_completedRidePointId);
+        IEnumerable<CompletedRidePoint>? GetCompletedRidePointById(string p_completedRidePointId);
+
 
         // PlannedRide
         IEnumerable<PlannedRide> GetAllPlannedRidesByUser(string p_userLogin);
@@ -27,6 +29,11 @@ namespace TrackSense.API.Entities.Interfaces
         void UpdatePlannedRide(PlannedRide p_plannedRide);
         void DeletePlannedRideById(string p_plannedRideId);
         void AddPlannedRide(PlannedRide p_plannedRide);
-        PlannedRideStatistics? GetAllPlannedRideStatistics(string p_plannedRideId);
+        PlannedRideStatistics? GetPlannedRideStatisticsById(string p_plannedRideId);
+
+        //Location
+        Location ? GetLocationById(int p_locationId);
+        void AddLocation(Location p_location);
+
     }
 }

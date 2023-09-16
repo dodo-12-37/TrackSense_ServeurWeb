@@ -26,4 +26,24 @@ public class PlannedRideStatistic
 
     [ForeignKey(nameof(PlannedRideId))]
     public virtual PlannedRide PlannedRide { get; set; } = null!;
+
+    public PlannedRideStatistic()
+    {
+        
+    }
+    public Entities.PlannedRideStatistics ToEntity()
+    {
+        return new Entities.PlannedRideStatistics()
+        {
+            PlannedRideId = this.PlannedRideId,
+            AverageSpeed = this.AverageSpeed,
+            AverageDuration = this.AverageDuration,
+            MaximumSpeed = this.MaximumSpeed,
+            Falls = this.Falls,
+            Calories = this.Calories,
+            Distance = this.Distance,
+            Duration = this.Duration
+
+        };
+    }
 }

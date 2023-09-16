@@ -13,11 +13,14 @@ public class CompletedRide
     public string? PlannedRideId { get; set; }
 
     public virtual DTOs.CompletedRideStatistic? CompletedRideStatistic { get; set; }
+   
     public virtual ICollection<DTOs.CompletedRidePoint> CompletedRidePoints { get; set; } = new List<DTOs.CompletedRidePoint>();
+    
     
     [ForeignKey(nameof(UserLogin))]
     public virtual User User { get; set; }
 
+    
     [ForeignKey(nameof(PlannedRideId))]
     public virtual PlannedRide PlannedRide { get; set; }
 
@@ -80,18 +83,17 @@ public class CompletedRide
 
     private DTOs.CompletedRideStatistic CalculateStatistic()
     {
-       
 
         return new DTOs.CompletedRideStatistic()
         {
 
             CompletedRideId = this.CompletedRideId,
 
-            AvgSpeed =this.CompletedRidePoints!.Average(p => p.Location.Speed),
+            AvgSpeed =this.CompletedRidePoints!.Select(c => c.Location.Speed).ToList().Average(),
 
-            MaxSpeed = this.CompletedRidePoints!.Max(p => p.Location.Speed),
+            MaxSpeed = this.CompletedRidePoints!.Select(c=>c.Location.Speed).ToList().Max(),
 
-            Duration = this.CompletedRidePoints!.Max(p => p.Date) - this.CompletedRidePoints!.Min(p => p.Date)
+            Duration = this.CompletedRidePoints!.Select(c=>c.Date).Max() - this.CompletedRidePoints!.Select(c => c.Date).Min()
         };
     }
 }

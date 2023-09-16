@@ -3,6 +3,7 @@
     public class CompletedRidePoint
     {
         public string CompletedRideId { get; set; } = null!;
+        public int LocationId {  get; set; } =0;
         public Location Location { get; set; } = new Location();
         public int? RideStep { get; set; } = 0;
         public double? Temperature { get; set; } = 0;
@@ -12,13 +13,6 @@
         {
             
         }
-        public CompletedRidePoint(Entities.Location p_location)
-        {
-            if (p_location == null)
-            {
-                throw new ArgumentNullException(nameof(p_location));
-            }
-            Location = p_location;
-        }
+       
     }
 }

@@ -17,22 +17,17 @@ namespace TrackSense.API.Entities
         {
             
         }
-        public CompletedRideStatistics(CompletedRide p_completedRide)
+        public CompletedRideStatistics(List<CompletedRidePoint> points)
         {
-            if (p_completedRide == null)
+            if (points == null)
             {
-                throw new ArgumentNullException(nameof(p_completedRide));
+                throw new ArgumentNullException(nameof(points));
             }
-            if (p_completedRide.CompletedRidePoints == null)
-            {
-                throw new ArgumentNullException(nameof(p_completedRide));
-            }
-            this.CompletedRideId = p_completedRide.CompletedRideId;
-            this.AverageSpeed =p_completedRide.CompletedRidePoints.Average(p => p.Location.Speed);
-
-            this.MaximumSpeed = p_completedRide.CompletedRidePoints.Max(p => p.Location.Speed);
-
-            this.Duration = p_completedRide.CompletedRidePoints.Max(p => p.Date) - p_completedRide.CompletedRidePoints.Min(p => p.Date);
+            
+            this.CompletedRideId = points[0].CompletedRideId;
+            this.AverageSpeed = points.Average(p => p.Location.Speed);
+            this.MaximumSpeed = points.Max(p => p.Location.Speed);
+            this.Duration = points.Max(p => p.Date) - points.Min(p => p.Date);
         }
     }
 }

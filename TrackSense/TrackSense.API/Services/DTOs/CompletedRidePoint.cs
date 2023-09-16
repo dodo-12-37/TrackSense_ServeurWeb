@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
 [Table("completedridepoint")]
+[PrimaryKey(nameof(CompletedRideId),nameof(LocationId))]
 public class CompletedRidePoint
 {
-    [Key]
     public string CompletedRideId { get; set; }
 
     public int LocationId { get; set; }
@@ -22,7 +23,7 @@ public class CompletedRidePoint
     public virtual CompletedRide CompletedRide { get; set; } = null!;
     
     [ForeignKey(nameof(LocationId))]
-    public virtual Location Location { get; set; } = null!;
+    public virtual Location? Location { get; set; } = null!;
     public CompletedRidePoint()
     {
         
@@ -34,7 +35,6 @@ public class CompletedRidePoint
             throw new ArgumentException(nameof(p_completedRidePoint));
         }
         this.CompletedRideId = p_completedRidePoint.CompletedRideId;
-        this.Location = new Location(p_completedRidePoint.Location);
         this.LocationId = this.Location.LocationId;
         this.RideStep = p_completedRidePoint.RideStep;
         this.Temperature = p_completedRidePoint.Temperature;
@@ -46,8 +46,8 @@ public class CompletedRidePoint
     {
         return new Entities.CompletedRidePoint()
         {
+            LocationId = this.LocationId,
             CompletedRideId = this.CompletedRideId,
-            Location = this.Location.ToEntity(),
             Date = this.Date,
             RideStep = this.RideStep,
             Temperature = this.Temperature
