@@ -22,7 +22,7 @@ public class CompletedRide
 
     
     [ForeignKey(nameof(PlannedRideId))]
-    public virtual PlannedRide PlannedRide { get; set; }
+    public virtual PlannedRide PlannedRide { get; set; }    
 
     public CompletedRide()
     {
@@ -47,14 +47,14 @@ public class CompletedRide
         this.CompletedRideId =p_completedRide.CompletedRideId;
 
         this.PlannedRideId = p_completedRide?.PlannedRide?.PlannedRideId;
-
+/*
         if (p_completedRide!.CompletedRidePoints != null)
         {
             this.CompletedRidePoints = p_completedRide.CompletedRidePoints
                                                         .Select(point => new DTOs.CompletedRidePoint(point))
                                                         .ToList();
-        }
-
+        }*/
+/*
         if(p_completedRide.Statistics != null)
         {
             this.CompletedRideStatistic = new DTOs.CompletedRideStatistic(p_completedRide.Statistics);
@@ -64,7 +64,7 @@ public class CompletedRide
         {
             this.CompletedRideStatistic = CalculateStatistic();
         }
-       
+       */
     }
 
     public Entities.CompletedRide ToEntity()

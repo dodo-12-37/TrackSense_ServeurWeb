@@ -22,34 +22,49 @@ namespace TrackSense.API.Services.ServiceRides
             {
                 throw new ArgumentNullException(nameof(p_comletedRide));
             }
-
-            List<CompletedRidePoint> completedRidePoints = p_comletedRide.CompletedRidePoints;
-
+            List<CompletedRidePoint> completedRidePoints = p_comletedRide!.CompletedRidePoints.ToList();
             if(completedRidePoints== null)
             {
                 throw new NullReferenceException(nameof(p_comletedRide.CompletedRidePoints));
             }
             
-            this.AddCompletedRideStatistics(new CompletedRideStatistics(completedRidePoints));
+            PlannedRide? plannedRide = p_comletedRide?.PlannedRide;
 
-            if(p_comletedRide.PlannedRide != null)
+            if(plannedRide != null)
             {
-                this.AddPlannedRide(p_comletedRide.PlannedRide);
+
+                List<PlannedRidePoint> plannedRidePoints = plannedRide.PlannedRidePoints.ToList();
+
+                //Add location of plannedride
+                plannedRidePoints.ForEach(p => this.AddLocation(p.Location));
+
+                //Add PlannedRide
+                this.AddPlannedRide(plannedRide);
+
+                //Add PlannedRide Point
+                plannedRidePoints.ForEach(p => this.AddPlannedRidePoint(p));
             }
 
-            p_comletedRide.CompletedRidePoints.ForEach(p => this.AddCompletedRidePoint(p));
-
-
-            m_context.CompletedRides.Add(new DTOs.CompletedRide(p_comletedRide));
+            // Add completedRide
+            m_context.CompletedRides.Add(new DTOs.CompletedRide(p_comletedRide!));
             m_context.SaveChanges();
             m_context.ChangeTracker.Clear();
+
+            // Add location of completedRidePoint
+
+            completedRidePoints.ForEach(p => this.AddLocation(p.Location));
+            
+            // Add completed Ride point
+            completedRidePoints.ForEach(p => this.AddCompletedRidePoint(p));
+            
+            //this.AddCompletedRideStatistics(new CompletedRideStatistics(completedRidePoints,p_comletedRide!.CompletedRideId));
+
 
         }
 
         public void AddCompletedRidePoint(CompletedRidePoint p_comletedRidePoint)
         {
             m_context.CompletedRidePoints.Add(new DTOs.CompletedRidePoint(p_comletedRidePoint));
-            this.AddLocation(p_comletedRidePoint.Location);
 
             m_context.SaveChanges();
             m_context.ChangeTracker.Clear();
@@ -58,6 +73,8 @@ namespace TrackSense.API.Services.ServiceRides
         public void AddCompletedRideStatistics(CompletedRideStatistics p_completedRideStatistic)
         {
             m_context.CompletedRideStatistics.Add(new DTOs.CompletedRideStatistic(p_completedRideStatistic));
+            m_context.SaveChanges();
+            m_context.ChangeTracker.Clear();
         }
 
         public void AddPlannedRide(PlannedRide p_plannedRide)
@@ -135,7 +152,7 @@ namespace TrackSense.API.Services.ServiceRides
                 List<CompletedRidePoint> completedRidePoints = this.GetCompletedRidePointById(p_completedRideId)!.ToList();
 
                 CompletedRideStatistics ? completedRideStatistics = this.GetCompletedRideStatistics(p_completedRideId) ?? 
-                                                                    new CompletedRideStatistics(completedRidePoints);
+                                                                    new CompletedRideStatistics(completedRidePoints,p_completedRideId);
 
                 var completedRide = completedRideDTO.ToEntity();
 
@@ -167,7 +184,7 @@ namespace TrackSense.API.Services.ServiceRides
             return m_context.CompletedRideStatistics?.Find(p_completedRideId)?.ToEntity();
         }
 
-        public Location? GetLocationById(int p_locationId)
+        public Location? GetLocationById(string p_locationId)
         {
             return m_context.Locations.Find(p_locationId)?.ToEntity();
         }
@@ -206,20 +223,17 @@ namespace TrackSense.API.Services.ServiceRides
             return m_context.PlannedRides.Any(r => r.PlannedRideId == p_plannedRideId);
         }
 
-        private bool UserExist(string p_UserLogin)
-        {
-            return m_context.Users.Any(u => u.UserLogin== p_UserLogin);
-        }
-
+       
         private bool CompletedRideExist(string p_CompletedRideId)
         {
             return m_context.CompletedRides.Any(r => r.CompletedRideId == p_CompletedRideId);
         }
 
-        private DTOs.Location ? GetLocationDTOById(int  p_locationId)
+        public void AddPlannedRidePoint(PlannedRidePoint p_plannedRidePoint)
         {
-            return m_context.Locations.Find(p_locationId);
+            m_context.PlannedRidePoints.Add(new DTOs.PlannedRidePoint(p_plannedRidePoint));
+            m_context.SaveChanges();
+            m_context.ChangeTracker.Clear();
         }
-
     }
 }

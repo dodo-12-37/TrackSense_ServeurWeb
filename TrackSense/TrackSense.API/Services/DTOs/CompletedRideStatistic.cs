@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,7 +21,7 @@ public class CompletedRideStatistic
 
     public double? Distance { get;  set; }
     
-    public TimeSpan? Duration { get; set; }
+    public TimeSpan Duration { get; set; }
     
     [ForeignKey("CompletedRideId")]
     public virtual CompletedRide CompletedRide { get; set; } = null!;

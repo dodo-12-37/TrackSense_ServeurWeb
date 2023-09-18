@@ -9,7 +9,7 @@ namespace TrackSense.API.Services.DTOs;
 public class Location
 {
     [Key]
-    public int LocationId { get; set; }
+    public string LocationId { get; set; }
 
     public double Latitude { get; set; }
 
@@ -19,7 +19,7 @@ public class Location
 
     public double? Speed { get; set; }
 
-    public virtual Address Address { get; set; } = new Address();
+    public virtual Address ?Address { get; set; } = null;
 
     public virtual ICollection<PlannedRidePoint> PlannedRidePoints { get; set; } = new List<PlannedRidePoint>();
 
@@ -50,7 +50,7 @@ public class Location
             Longitude = this.Longitude,
             Altitude = this.Altitude,
             Speed = this.Speed,
-            Address = this.Address.ToEntity()
+            Address = this.Address?.ToEntity()
         };
     }
 }

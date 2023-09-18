@@ -1,10 +1,17 @@
-﻿using TrackSense.API.Entities;
+﻿using TrackSense.API.Data;
+using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;
 
 namespace TrackSense.API.Services.ServiceUsers
 {
     public class DepotUsers_MySQL : IDepotUsers
     {
+        private readonly TracksenseContext m_context;
+
+        public DepotUsers_MySQL(TracksenseContext tracksenseContext)
+        {
+            this.m_context = tracksenseContext;   
+        }
         public void AddUser(User p_user)
         {
             throw new NotImplementedException();
@@ -87,7 +94,7 @@ namespace TrackSense.API.Services.ServiceUsers
 
         public User? GetUserByUserLogin(string p_userLogin)
         {
-            throw new NotImplementedException();
+            return m_context.Users.Find(p_userLogin)?.ToEntity();
         }
 
         public IEnumerable<UserCompletedRide> GetUserCompletedRides(string p_userLogin)
@@ -149,5 +156,10 @@ namespace TrackSense.API.Services.ServiceUsers
         {
             throw new NotImplementedException();
         }
+        public bool UserExist(string p_UserLogin)
+        {
+            return m_context.Users.Any(u => u.UserLogin== p_UserLogin);
+        }
+
     }
 }

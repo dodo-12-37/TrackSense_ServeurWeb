@@ -36,14 +36,18 @@ public class PlannedRide
         {
             throw new ArgumentNullException(nameof(p_plannedRide.UserLogin));
         }
+
         if (p_plannedRide.PlannedRideId == "")
         {
             throw new ArgumentNullException(nameof(p_plannedRide.PlannedRideId));
         }
+
         this.PlannedRideId = p_plannedRide.PlannedRideId;
         this.UserLogin = p_plannedRide.UserLogin;
         this.Name = p_plannedRide.Name;
         this.IsFavorite = p_plannedRide.IsFavorite;
+
+        //this.PlannedRidePoints = p_plannedRide.PlannedRidePoints.Select(p => new DTOs.PlannedRidePoint(p)).ToList();
     }
 
     public Entities.PlannedRide ToEntity()

@@ -34,7 +34,7 @@ namespace TrackSense.API.Services.ServiceUsers
         public bool CheckUser(string p_userLogin)
         {
             return !String.IsNullOrEmpty(p_userLogin) 
-                && this.m_depotUsers.GetUserByUserLogin(p_userLogin) != null;
+                && this.m_depotUsers.UserExist(p_userLogin);
         }
 
         public string GenerateUserBearerToken(string p_userLogin, string p_userPassword)
@@ -73,7 +73,7 @@ namespace TrackSense.API.Services.ServiceUsers
 
             IEnumerable<UserCompletedRide> completedRides = new List<UserCompletedRide>();
 
-            if (this.m_depotUsers.GetUserByUserLogin(p_userLogin) != null)
+            if (m_depotUsers.UserExist(p_userLogin))
             {
                 completedRides = this.m_depotUsers.GetUserCompletedRides(p_userLogin);
             }

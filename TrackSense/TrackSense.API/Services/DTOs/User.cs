@@ -36,4 +36,19 @@ public class User
     public virtual ICollection<PlannedRide> PlannedRides { get; set; } = new List<PlannedRide>();
     public virtual ICollection<InterestPoint> InterestPoints { get; set; } = new List<InterestPoint>();
 
+    public User()
+    {
+        
+    }
+
+    public Entities.User ToEntity()
+    {
+        return new Entities.User()
+        {
+            UserLogin = this.UserLogin,
+            CompletedRides = this.CompletedRides.Select(r => r.ToEntity()).ToList(),
+            PlannedRides = this.PlannedRides.Select(r => r.ToEntity()).ToList()
+        };
+    }
+
 }

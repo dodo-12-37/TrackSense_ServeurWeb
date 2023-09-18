@@ -74,15 +74,15 @@ namespace TrackSense.API.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
-        public ActionResult Post([FromBody] CompletedRideModel p_completedRide)
+        public ActionResult Post([FromBody] CompletedRideModel p_completedRideModel)
         {
             ActionResult response;
 
-            if (this.CheckUserToken())
+            if (!this.CheckUserToken())
             {
                 response = Unauthorized();
             }
-            else if (p_completedRide == null)
+            else if (p_completedRideModel == null)
             {
                 response = BadRequest();
             }
@@ -90,10 +90,10 @@ namespace TrackSense.API.Controllers
             {
                 try
                 {
-                    CompletedRide completedRide = p_completedRide.ToEntity();
+                    CompletedRide completedRide = p_completedRideModel.ToEntity();
                     this.m_ridesManipulation.AddCompletedRide(completedRide);
 
-                    string url = $"api/completedRides/{p_completedRide.CompletedRideId}";
+                    string url = $"api/completedRides/{completedRide.CompletedRideId}";
                     response = Created(url, new CompletedRideModel(completedRide));
                 }
                 catch (Exception)

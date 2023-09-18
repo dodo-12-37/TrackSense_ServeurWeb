@@ -29,10 +29,11 @@ namespace TrackSense.API.Entities.Interfaces
         void UpdatePlannedRide(PlannedRide p_plannedRide);
         void DeletePlannedRideById(string p_plannedRideId);
         void AddPlannedRide(PlannedRide p_plannedRide);
+        void AddPlannedRidePoint(PlannedRidePoint p_plannedRidePoint);
         PlannedRideStatistics? GetPlannedRideStatisticsById(string p_plannedRideId);
 
         //Location
-        Location ? GetLocationById(int p_locationId);
+        Location ? GetLocationById(string p_locationId);
         void AddLocation(Location p_location);
 
     }

@@ -11,7 +11,7 @@ public class PlannedRidePoint
 {
     public string PlannedRideId { get; set; } = null!;
 
-    public int LocationId { get; set; }
+    public string LocationId { get; set; }
 
     public int? RideStep { get; set; }
 
@@ -22,4 +22,18 @@ public class PlannedRidePoint
 
     [ForeignKey(nameof(PlannedRideId))]
     public virtual PlannedRide PlannedRide { get; set; } = null!;
+
+    public PlannedRidePoint()
+    {
+        
+    }
+
+    public PlannedRidePoint(Entities.PlannedRidePoint p_plannedRidePoint)
+    {
+        this.PlannedRideId = p_plannedRidePoint.PlannedRideId;
+        this.LocationId  = p_plannedRidePoint.Location.LocationId;
+        this.Temperature = p_plannedRidePoint.Temperature;
+        this.RideStep = p_plannedRidePoint.RideStep;
+
+    }
 }

@@ -1,14 +1,21 @@
-﻿using TrackSense.API.Entities;
+﻿using System.ComponentModel;
+using System.Runtime.InteropServices;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class LocationModel
     {
-        public int LocationId { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        [DefaultValue("936d896e-0658-4efe-9ec8-247a39f7cb15")]
+        public string LocationId { get; set; } = Guid.NewGuid().ToString();
+
+        [DefaultValue(46.778180)]
+        public double Latitude { get; set; } = 0;
+
+        [DefaultValue(-71.313940)]
+        public double Longitude { get; set; } = 0;
         public double ?Altitude { get; set; }
-        public double ?Speed { get; set; }
+        public double? Speed { get; set; } = 0;
 
 
         public LocationModel()

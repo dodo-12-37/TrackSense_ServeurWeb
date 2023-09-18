@@ -10,7 +10,7 @@ public class Address
     [Key]
     public int AddressId { get; set; }
 
-    public int? LocationId { get; set; }
+    public string? LocationId { get; set; }
 
     public string? AppartmentNumber { get; set; }
 
