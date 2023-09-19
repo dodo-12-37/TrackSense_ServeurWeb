@@ -24,6 +24,7 @@ namespace TrackSense.API.Models
 
         public PlannedRideModel(Entities.PlannedRide p_plannedRide)
         {
+            this.PlannedRideId = p_plannedRide.PlannedRideId;
             this.UserLogin = p_plannedRide.UserLogin;
             this.Name = p_plannedRide?.Name;
             this.IsFavorite = p_plannedRide?.IsFavorite;

@@ -148,6 +148,17 @@ namespace TrackSense.API.Services.ServiceRides
                 PlannedRide? plannedRide = completedRideDTO.PlannedRideId == null
                                             ? null
                                             : this.GetPlannedRideById(completedRideDTO.PlannedRideId);
+                if (plannedRide != null)
+                {
+
+                    List<DTOs.PlannedRidePoint> plannedRidePointsDTO = this.GetPlannedRidePointsDTOById(plannedRide.PlannedRideId)!.ToList();
+
+                    plannedRidePointsDTO.ForEach(p => this.GetLocationDTOById(p.LocationId));
+
+                    plannedRide.PlannedRidePoints = plannedRidePointsDTO.Select(p => p.ToEntity()).ToList();
+                    
+
+                }
 
                 List<CompletedRidePoint> completedRidePoints = this.GetCompletedRidePointById(p_completedRideId)!.ToList();
 
@@ -192,6 +203,16 @@ namespace TrackSense.API.Services.ServiceRides
         public PlannedRide? GetPlannedRideById(string p_completedRideId)
         {
             return m_context.PlannedRides?.Find(p_completedRideId)?.ToEntity();
+        }
+
+  
+        public IEnumerable<DTOs.PlannedRidePoint> ? GetPlannedRidePointsDTOById(string p_plannedRideId)
+        {
+            return m_context.PlannedRidePoints.Where(p => p.PlannedRideId == p_plannedRideId);
+        }
+        public DTOs.Location ?GetLocationDTOById(string p_locationId)
+        {
+            return m_context.Locations.Find(p_locationId);
         }
 
         public void UpdateCompletedRide(CompletedRide p_completedRide)

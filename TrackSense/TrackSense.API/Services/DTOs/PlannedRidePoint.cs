@@ -36,4 +36,14 @@ public class PlannedRidePoint
         this.RideStep = p_plannedRidePoint.RideStep;
 
     }
+    public Entities.PlannedRidePoint ToEntity()
+    {
+        return new Entities.PlannedRidePoint()
+        {
+            PlannedRideId = this.PlannedRideId,
+            Location = this.Location.ToEntity(),
+            Temperature = this.Temperature,
+            RideStep = this.RideStep
+        };
+    }
 }
