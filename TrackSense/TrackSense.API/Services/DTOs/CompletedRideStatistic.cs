@@ -47,6 +47,7 @@ public class CompletedRideStatistic
     {
         return new Entities.CompletedRideStatistics()
         {
+            CompletedRideId = this.CompletedRideId,
             AverageSpeed = this.AvgSpeed,
             MaximumSpeed = this.MaxSpeed,
             Duration = this.Duration,

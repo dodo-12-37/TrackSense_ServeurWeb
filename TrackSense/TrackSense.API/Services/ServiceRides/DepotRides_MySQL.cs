@@ -140,37 +140,18 @@ namespace TrackSense.API.Services.ServiceRides
 
         public Entities.CompletedRide? GetCompletedRideById(string p_completedRideId)
         {
-            DTOs.CompletedRide? completedRideDTO = m_context.CompletedRides.Find(p_completedRideId);
+            DTOs.CompletedRide? completedRideDTO = m_context.CompletedRides .Where(r => r.CompletedRideId == p_completedRideId)
+                                                                            .Include(r => r.CompletedRidePoints)
+                                                                                    .ThenInclude(r => r.Location)
+                                                                            .Include(r=> r.CompletedRideStatistic)
+                                                                            .Include(r=> r.PlannedRide)
+                                                                                    .ThenInclude(r=>r.PlannedRidePoints)
+
+                                                                             .SingleOrDefault();
             
             if (completedRideDTO!=null)
             {
-                
-                PlannedRide? plannedRide = completedRideDTO.PlannedRideId == null
-                                            ? null
-                                            : this.GetPlannedRideById(completedRideDTO.PlannedRideId);
-                if (plannedRide != null)
-                {
-
-                    List<DTOs.PlannedRidePoint> plannedRidePointsDTO = this.GetPlannedRidePointsDTOById(plannedRide.PlannedRideId)!.ToList();
-
-                    plannedRidePointsDTO.ForEach(p => this.GetLocationDTOById(p.LocationId));
-
-                    plannedRide.PlannedRidePoints = plannedRidePointsDTO.Select(p => p.ToEntity()).ToList();
-                    
-
-                }
-
-                List<CompletedRidePoint> completedRidePoints = this.GetCompletedRidePointById(p_completedRideId)!.ToList();
-
-                CompletedRideStatistics ? completedRideStatistics = this.GetCompletedRideStatistics(p_completedRideId) ?? 
-                                                                    new CompletedRideStatistics(completedRidePoints,p_completedRideId);
-
                 var completedRide = completedRideDTO.ToEntity();
-
-                completedRide.Statistics = completedRideStatistics;
-                completedRide.CompletedRidePoints = completedRidePoints!;
-                completedRide.PlannedRide = plannedRide;
-
                 return completedRide;
             }
             return null;

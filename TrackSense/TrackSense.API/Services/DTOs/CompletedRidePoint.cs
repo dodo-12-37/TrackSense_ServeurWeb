@@ -23,7 +23,7 @@ public class CompletedRidePoint
     public virtual CompletedRide CompletedRide { get; set; } = null!;
     
     [ForeignKey(nameof(LocationId))]
-    public virtual Location? Location { get; set; } = null!;
+    public virtual Location Location { get; set; } = null!;
     public CompletedRidePoint()
     {
         
@@ -46,6 +46,7 @@ public class CompletedRidePoint
     {
         return new Entities.CompletedRidePoint()
         {
+            Location = this.Location.ToEntity(),
             LocationId = this.LocationId,
             CompletedRideId = this.CompletedRideId,
             Date = this.Date,
