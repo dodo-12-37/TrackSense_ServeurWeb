@@ -2,7 +2,7 @@
 {
     public class Location
     {
-        public string LocationId { get;  set; } = Guid.NewGuid().ToString();
+        public int LocationId { get; set; } = 0;
         public Address? Address { get;  set; } = null;
         public double Latitude { get;  set; } = 0;
         public double Longitude { get;  set; }= 0;

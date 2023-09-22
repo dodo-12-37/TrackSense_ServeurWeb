@@ -8,7 +8,7 @@ public class CompletedRide
     [Key]
     public string CompletedRideId { get; set; }
 
-    public string UserLogin { get; set; }
+    public string UserLogin { get; set; } = null!;
 
     public string? PlannedRideId { get; set; }
 
@@ -22,7 +22,7 @@ public class CompletedRide
 
     
     [ForeignKey(nameof(PlannedRideId))]
-    public virtual PlannedRide PlannedRide { get; set; }    
+    public virtual PlannedRide ?PlannedRide { get; set; }    
 
     public CompletedRide()
     {
@@ -30,14 +30,7 @@ public class CompletedRide
     }
     public CompletedRide(Entities.CompletedRide p_completedRide)
     {
-        if (p_completedRide==null)
-        {
-            throw new NullReferenceException(nameof(p_completedRide));
-        }
-        if (p_completedRide.UserLogin == null)
-        {
-            throw new NullReferenceException(nameof(p_completedRide.UserLogin));
-        }
+        
         if (p_completedRide.CompletedRideId==string.Empty)
         {
             throw new InvalidOperationException("Id du CompletedRide ne doit pas être null ni vide");
@@ -45,17 +38,22 @@ public class CompletedRide
 
         this.UserLogin = p_completedRide.UserLogin;
         this.CompletedRideId =p_completedRide.CompletedRideId;
+        if (p_completedRide.PlannedRide != null)
+        {
 
-        this.PlannedRideId = p_completedRide?.PlannedRide?.PlannedRideId;
-/*
+            this.PlannedRideId = p_completedRide?.PlannedRide?.PlannedRideId;
+            this.PlannedRide = new DTOs.PlannedRide(p_completedRide!.PlannedRide);
+        }
+
+
         if (p_completedRide!.CompletedRidePoints != null)
         {
             this.CompletedRidePoints = p_completedRide.CompletedRidePoints
                                                         .Select(point => new DTOs.CompletedRidePoint(point))
                                                         .ToList();
-        }*/
-/*
-        if(p_completedRide.Statistics != null)
+        }
+
+        if (p_completedRide.Statistics != null)
         {
             this.CompletedRideStatistic = new DTOs.CompletedRideStatistic(p_completedRide.Statistics);
         }
@@ -64,7 +62,7 @@ public class CompletedRide
         {
             this.CompletedRideStatistic = CalculateStatistic();
         }
-       */
+
     }
 
     public Entities.CompletedRide ToEntity()
@@ -78,6 +76,9 @@ public class CompletedRide
             Statistics = this.CompletedRideStatistic != null
                         ? this.CompletedRideStatistic.ToEntity()
                         : CalculateStatistic().ToEntity(),
+            PlannedRide = this.PlannedRide != null
+                          ? this.PlannedRide.ToEntity()
+                          : null,
         };
     }
 

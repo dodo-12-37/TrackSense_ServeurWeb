@@ -8,9 +8,9 @@ namespace TrackSense.API.Services.DTOs;
 public class Address
 {
     [Key]
-    public int AddressId { get; set; }
+    public int AddressId { get; set; } = 0;
 
-    public string? LocationId { get; set; }
+    public int? LocationId { get; set; }
 
     public string? AppartmentNumber { get; set; }
 

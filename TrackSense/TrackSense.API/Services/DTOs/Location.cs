@@ -9,7 +9,7 @@ namespace TrackSense.API.Services.DTOs;
 public class Location
 {
     [Key]
-    public string LocationId { get; set; }
+    public int LocationId { get; set; }
 
     public double Latitude { get; set; }
 
@@ -31,7 +31,7 @@ public class Location
     }
     public Location(Entities.Location p_location)
     {
-        if (p_location.Address!=null)
+        if (p_location.Address != null)
         {
             this.Address = new Address( p_location.Address);
         }

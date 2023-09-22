@@ -6,8 +6,9 @@ namespace TrackSense.API.Models
 {
     public class LocationModel
     {
-        [DefaultValue("936d896e-0658-4efe-9ec8-247a39f7cb15")]
-        public string LocationId { get; set; } = Guid.NewGuid().ToString();
+        [DefaultValue(0)]
+        
+        public int LocationId { get; set; } = 0;
 
         [DefaultValue(46.778180)]
         public double Latitude { get; set; } = 0;
@@ -36,7 +37,7 @@ namespace TrackSense.API.Models
         {
             return new Location
             {
-                LocationId = this.LocationId,
+                //LocationId = this.LocationId,
                 Latitude = this.Latitude,
                 Longitude = this.Longitude,
                 Altitude = this.Altitude,

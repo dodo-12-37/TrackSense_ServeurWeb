@@ -33,7 +33,7 @@ namespace TrackSense.API.Entities.Interfaces
         PlannedRideStatistics? GetPlannedRideStatisticsById(string p_plannedRideId);
 
         //Location
-        Location ? GetLocationById(string p_locationId);
+        Location ? GetLocationById(int p_locationId);
         void AddLocation(Location p_location);
 
     }

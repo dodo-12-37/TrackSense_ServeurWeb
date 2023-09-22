@@ -92,9 +92,10 @@ namespace TrackSense.API.Controllers
                 {
                     CompletedRide completedRide = p_completedRideModel.ToEntity();
                     this.m_ridesManipulation.AddCompletedRide(completedRide);
-
+                    
                     string url = $"api/completedRides/{completedRide.CompletedRideId}";
-                    response = Created(url, new CompletedRideModel(completedRide));
+                    var NewRide = this.m_ridesManipulation.GetCompletedRideById(completedRide.CompletedRideId)!;
+                    response = Created(url, new CompletedRideModel(NewRide));
                 }
                 catch (Exception)
                 {

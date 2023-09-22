@@ -11,7 +11,7 @@ public class CompletedRidePoint
 {
     public string CompletedRideId { get; set; }
 
-    public string LocationId { get; set; }
+    public int LocationId { get; set; }
 
     public int? RideStep { get; set; }
 
@@ -35,6 +35,7 @@ public class CompletedRidePoint
             throw new ArgumentException(nameof(p_completedRidePoint));
         }
         this.CompletedRideId = p_completedRidePoint.CompletedRideId;
+        this.Location = new DTOs.Location( p_completedRidePoint.Location);
         this.LocationId = p_completedRidePoint.LocationId;
         this.RideStep = p_completedRidePoint.RideStep;
         this.Temperature = p_completedRidePoint.Temperature;

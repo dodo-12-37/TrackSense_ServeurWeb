@@ -3,7 +3,7 @@
     public class CompletedRidePoint
     {
         public string CompletedRideId { get; set; } = null!;
-        public string LocationId {  get; set; } =null!;
+        public int LocationId {  get; set; } =0;
         public Location Location { get; set; } = null!;
         public int? RideStep { get; set; } = 0;
         public double? Temperature { get; set; } = 0;

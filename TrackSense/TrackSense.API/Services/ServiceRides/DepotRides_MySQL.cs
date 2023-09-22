@@ -22,42 +22,14 @@ namespace TrackSense.API.Services.ServiceRides
             {
                 throw new ArgumentNullException(nameof(p_comletedRide));
             }
-            List<CompletedRidePoint> completedRidePoints = p_comletedRide!.CompletedRidePoints.ToList();
-            if(completedRidePoints== null)
-            {
-                throw new NullReferenceException(nameof(p_comletedRide.CompletedRidePoints));
-            }
-            
-            PlannedRide? plannedRide = p_comletedRide?.PlannedRide;
-
-            if(plannedRide != null)
-            {
-
-                List<PlannedRidePoint> plannedRidePoints = plannedRide.PlannedRidePoints.ToList();
-
-                //Add location of plannedride
-                plannedRidePoints.ForEach(p => this.AddLocation(p.Location));
-
-                //Add PlannedRide
-                this.AddPlannedRide(plannedRide);
-
-                //Add PlannedRide Point
-                plannedRidePoints.ForEach(p => this.AddPlannedRidePoint(p));
-            }
 
             // Add completedRide
-            m_context.CompletedRides.Add(new DTOs.CompletedRide(p_comletedRide!));
+            DTOs.CompletedRide completedRide = new DTOs.CompletedRide(p_comletedRide);
+
+            m_context.Add(completedRide);
             m_context.SaveChanges();
+            p_comletedRide.CompletedRidePoints = completedRide.ToEntity().CompletedRidePoints;
             m_context.ChangeTracker.Clear();
-
-            // Add location of completedRidePoint
-
-            completedRidePoints.ForEach(p => this.AddLocation(p.Location));
-            
-            // Add completed Ride point
-            completedRidePoints.ForEach(p => this.AddCompletedRidePoint(p));
-            
-            //this.AddCompletedRideStatistics(new CompletedRideStatistics(completedRidePoints,p_comletedRide!.CompletedRideId));
 
 
         }
@@ -140,15 +112,19 @@ namespace TrackSense.API.Services.ServiceRides
 
         public Entities.CompletedRide? GetCompletedRideById(string p_completedRideId)
         {
-            DTOs.CompletedRide? completedRideDTO = m_context.CompletedRides .Where(r => r.CompletedRideId == p_completedRideId)
+            DTOs.CompletedRide? completedRideDTO = m_context.CompletedRides.Where(r => r.CompletedRideId == p_completedRideId)
+
                                                                             .Include(r => r.CompletedRidePoints)
                                                                                     .ThenInclude(r => r.Location)
-                                                                            .Include(r=> r.CompletedRideStatistic)
-                                                                            .Include(r=> r.PlannedRide)
-                                                                                    .ThenInclude(r=>r.PlannedRidePoints)
+
+                                                                             .Include(r => r.CompletedRideStatistic )
+
+                                                                             .Include(r => r.PlannedRide)
+                                                                                   .ThenInclude(r=> r.PlannedRidePoints)
+                                                                                   .ThenInclude(r => r.Location)
 
                                                                              .SingleOrDefault();
-            
+
             if (completedRideDTO!=null)
             {
                 var completedRide = completedRideDTO.ToEntity();
@@ -176,7 +152,7 @@ namespace TrackSense.API.Services.ServiceRides
             return m_context.CompletedRideStatistics?.Find(p_completedRideId)?.ToEntity();
         }
 
-        public Location? GetLocationById(string p_locationId)
+        public Location? GetLocationById(int p_locationId)
         {
             return m_context.Locations.Find(p_locationId)?.ToEntity();
         }
@@ -191,7 +167,7 @@ namespace TrackSense.API.Services.ServiceRides
         {
             return m_context.PlannedRidePoints.Where(p => p.PlannedRideId == p_plannedRideId);
         }
-        public DTOs.Location ?GetLocationDTOById(string p_locationId)
+        public DTOs.Location ?GetLocationDTOById(int p_locationId)
         {
             return m_context.Locations.Find(p_locationId);
         }

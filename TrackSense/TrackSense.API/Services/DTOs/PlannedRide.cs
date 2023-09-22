@@ -11,15 +11,15 @@ public class PlannedRide
     [Key]
     public string PlannedRideId { get; set; }
 
-    public string UserLogin { get; set; }
+    public string UserLogin { get; set; } = string.Empty!;
 
     public string? Name { get; set; }
 
     public bool? IsFavorite { get; set; }
 
-    public virtual ICollection<CompletedRide> CompletedRides { get; set; } = new List<CompletedRide>();
+    public virtual ICollection<CompletedRide> CompletedRides { get; set; }
 
-    public virtual ICollection <PlannedRidePoint> PlannedRidePoints { get; set; } = new List<PlannedRidePoint>();
+    public virtual ICollection <PlannedRidePoint> PlannedRidePoints { get; set; } 
 
     public virtual PlannedRideStatistic PlannedRideStatistic { get; set; }
 
@@ -42,19 +42,22 @@ public class PlannedRide
             throw new ArgumentNullException(nameof(p_plannedRide.PlannedRideId));
         }
 
+        this.PlannedRidePoints = p_plannedRide.PlannedRidePoints.Select(p => new DTOs.PlannedRidePoint(p)).ToList();
+
         this.PlannedRideId = p_plannedRide.PlannedRideId;
         this.UserLogin = p_plannedRide.UserLogin;
         this.Name = p_plannedRide.Name;
         this.IsFavorite = p_plannedRide.IsFavorite;
 
-        //this.PlannedRidePoints = p_plannedRide.PlannedRidePoints.Select(p => new DTOs.PlannedRidePoint(p)).ToList();
     }
 
     public Entities.PlannedRide ToEntity()
     {
         return new Entities.PlannedRide()
         {
+
             PlannedRideId = this.PlannedRideId,
+            PlannedRidePoints = this.PlannedRidePoints.Select(p => p.ToEntity()).ToList(),
             UserLogin = this.UserLogin,
             Name = this.Name,
             IsFavorite = this.IsFavorite,

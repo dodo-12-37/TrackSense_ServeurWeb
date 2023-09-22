@@ -15,7 +15,7 @@ namespace TrackSense.API.Models
         public string? Name { get; set; } 
         public bool ?IsFavorite { get; set; }
         public PlannedRideStatisticsModel? Statistics { get; set; }
-        public List<PlannedRidePointModel> PlannedRidePointModel { get; set; } = new List<PlannedRidePointModel>();
+        public List<PlannedRidePointModel> PlannedRidePoint { get; set; } =null!;
 
         public PlannedRideModel()
         {
@@ -36,7 +36,7 @@ namespace TrackSense.API.Models
 
             if (p_plannedRide.PlannedRidePoints != null)
             {
-                this.PlannedRidePointModel = p_plannedRide.PlannedRidePoints
+                this.PlannedRidePoint = p_plannedRide.PlannedRidePoints
                     .Select(point => new PlannedRidePointModel(point))
                     .ToList();
             }
@@ -51,7 +51,7 @@ namespace TrackSense.API.Models
                 Name = this.Name,
                 IsFavorite = this.IsFavorite,
                 Statistics = this.Statistics?.ToEntity(),
-                PlannedRidePoints = this.PlannedRidePointModel
+                PlannedRidePoints = this.PlannedRidePoint
                                             .Select(point => point.ToEntity())
                                             .ToList(),
             };
