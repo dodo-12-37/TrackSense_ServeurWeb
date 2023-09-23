@@ -1,13 +1,14 @@
-﻿using TrackSense.API.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class UserCompletedRideModel
     {
-        public Guid CompletedRideId { get; set; }
+        public string CompletedRideId { get; set; }
         public string? PlannedRideName { get; set; }
         public DateTime StartedAt { get; set; }
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration { get; set; }
         public double Distance { get; set; }
 
         public UserCompletedRideModel()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using TrackSense.API.Services.DTOs;
 
@@ -15,7 +16,7 @@ public partial class TracksenseContext : DbContext
         : base(options)
     {
     }
-
+    public virtual DbSet<UserCompletedRide> UserCompletedRides { get; set; }
     public virtual DbSet<Address> Addresses { get; set; }
 
     public virtual DbSet<ApplicationToken> ApplicationTokens { get; set; }

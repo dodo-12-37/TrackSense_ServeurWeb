@@ -1,4 +1,6 @@
-﻿using TrackSense.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using TrackSense.API.Data;
 using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;
 
@@ -99,7 +101,21 @@ namespace TrackSense.API.Services.ServiceUsers
 
         public IEnumerable<UserCompletedRide> GetUserCompletedRides(string p_userLogin)
         {
-            throw new NotImplementedException();
+            List<UserCompletedRide> userCompletedRide = new List<UserCompletedRide>() ;
+            try
+            {
+                userCompletedRide = m_context.UserCompletedRides
+                                                    .Where(ucr => ucr.UserLogin == p_userLogin)
+                                                    .Select(ucr => ucr.ToEntity())
+                                                    .ToList();
+            }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.Message );
+            }
+            
+            return userCompletedRide;
+                
         }
 
         public UserContact? GetUserContactById(int p_userLogin)
