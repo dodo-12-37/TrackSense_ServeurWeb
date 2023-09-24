@@ -4,9 +4,9 @@ namespace TrackSense.API.Models
 {
     public class PlannedRideStatisticsModel
     {
-        public double ?AverageSpeed { get; set; }
-        public double ?MaximumSpeed { get; set; }
-        public double ?AverageDuration { get; set; }
+        public double ?AverageSpeed { get;  }
+        public double ?MaximumSpeed { get;  }
+        public double ?AverageDuration { get; }
 
         public PlannedRideStatisticsModel()
         {

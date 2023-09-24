@@ -74,12 +74,12 @@ namespace TrackSense.API
 
             //app.UseHttpsRedirection();
 
-            if (app.Environment.IsDevelopment())
-            {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+          /*  if (app.Environment.IsDevelopment())
+            {
             }
-
+*/
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

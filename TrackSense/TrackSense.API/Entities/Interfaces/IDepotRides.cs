@@ -14,7 +14,7 @@ namespace TrackSense.API.Entities.Interfaces
 
         //CompletedRideStatisitics
         CompletedRideStatistics? GetCompletedRideStatistics(string p_completedRideId);
-        void AddCompletedRideStatistics(CompletedRideStatistics p_completedRideStatistic);
+        //void AddCompletedRideStatistics(CompletedRideStatistics p_completedRideStatistic);
 
         //CompletedRidePoints
         void AddCompletedRidePoint(CompletedRidePoint p_comletedRidePoint);

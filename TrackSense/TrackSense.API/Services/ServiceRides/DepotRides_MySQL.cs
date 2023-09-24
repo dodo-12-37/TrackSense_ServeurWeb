@@ -42,12 +42,6 @@ namespace TrackSense.API.Services.ServiceRides
             m_context.ChangeTracker.Clear();
         }
 
-        public void AddCompletedRideStatistics(CompletedRideStatistics p_completedRideStatistic)
-        {
-            m_context.CompletedRideStatistics.Add(new DTOs.CompletedRideStatistic(p_completedRideStatistic));
-            m_context.SaveChanges();
-            m_context.ChangeTracker.Clear();
-        }
 
         public void AddPlannedRide(PlannedRide p_plannedRide)
         {
@@ -117,18 +111,22 @@ namespace TrackSense.API.Services.ServiceRides
                                                                             .Include(r => r.CompletedRidePoints)
                                                                                     .ThenInclude(r => r.Location)
 
-                                                                             .Include(r => r.CompletedRideStatistic )
+                                                                            //.Include(r => r.CompletedRideStatistic )
 
                                                                              .Include(r => r.PlannedRide)
                                                                                    .ThenInclude(r=> r.PlannedRidePoints)
                                                                                    .ThenInclude(r => r.Location)
 
                                                                              .SingleOrDefault();
-
-            if (completedRideDTO!=null)
+            if(completedRideDTO != null)
             {
-                var completedRide = completedRideDTO.ToEntity();
-                return completedRide;
+
+                DTOs.CompletedRideStatistic? completedRideStatistic = m_context.CompletedRideStatistics.SingleOrDefault(s => s.CompletedRideId == p_completedRideId
+                                                                                                                         && s.UserLogin == completedRideDTO.UserLogin);
+
+                completedRideDTO.CompletedRideStatistic = completedRideStatistic;
+
+                return completedRideDTO.ToEntity();
             }
             return null;
             

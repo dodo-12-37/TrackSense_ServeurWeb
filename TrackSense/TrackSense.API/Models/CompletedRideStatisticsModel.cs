@@ -9,15 +9,13 @@ namespace TrackSense.API.Models
 {
     public class CompletedRideStatisticsModel 
     {
-        [DefaultValue("b0f07b65-3055-4f99-bc09-91829ca16fd")]
-        public string CompletedRideId { get; set; } =null!;
-        public double? AverageSpeed { get; set; } = 0;
-        public double? MaximumSpeed { get; set; } = 0;
-        public double? Distance { get; set; } = 0;
-        public int? Calories { get; set; } = 0;
-        public int? Falls { get; set; } = 0;
-        [JsonIgnore]
-        public TimeSpan Duration { get; set; }
+        public string CompletedRideId { get;  } 
+        public double? AverageSpeed { get; } = 0;
+        public double? MaximumSpeed { get;  } = 0;
+        public double? Distance { get;  } = 0;
+        public int? Calories { get;  } = 0;
+        public int? Falls { get;  } = 0;
+        public TimeSpan Duration { get; }
 
         public CompletedRideStatisticsModel()
         {

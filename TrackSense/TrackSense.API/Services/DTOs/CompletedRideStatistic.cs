@@ -3,14 +3,15 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrackSense.API.Services.DTOs;
-[Table("CompletedRideStatistic")]
+[Table("RideStatistic")]
+[Keyless]
 public class CompletedRideStatistic
 {
-    [Key]
-    public string CompletedRideId { get;  set; } = null!;
-
+    public string UserLogin { get; set; } = string.Empty!;
+    public string CompletedRideId { get;  set; } = string.Empty!;
     public double? AvgSpeed { get;  set; }
 
     public double? MaxSpeed { get;  set; }
@@ -22,15 +23,13 @@ public class CompletedRideStatistic
     public double? Distance { get;  set; }
     
     public TimeSpan Duration { get; set; }
-    
-    [ForeignKey("CompletedRideId")]
-    public virtual CompletedRide CompletedRide { get; set; } = null!;
+    public virtual CompletedRide CompletedRide { get; set; }
     
     public CompletedRideStatistic()
     {
         
     }
-    public CompletedRideStatistic(Entities.CompletedRideStatistics p_completedRideStatistics)
+   /* public CompletedRideStatistic(Entities.CompletedRideStatistics p_completedRideStatistics)
     {
         this.CompletedRideId = p_completedRideStatistics.CompletedRideId;
         this.MaxSpeed = p_completedRideStatistics.MaximumSpeed;
@@ -40,20 +39,21 @@ public class CompletedRideStatistic
         this.Distance = p_completedRideStatistics.Distance;
         this.Duration = p_completedRideStatistics.Duration;
         
-    }
+    }*/
    
-
     public Entities.CompletedRideStatistics ToEntity()
     {
-        return new Entities.CompletedRideStatistics()
-        {
-            CompletedRideId = this.CompletedRideId,
-            AverageSpeed = this.AvgSpeed,
-            MaximumSpeed = this.MaxSpeed,
-            Duration = this.Duration,
-            Calories = this.Calories,
-            Falls = this.Calories
+        var statistics = new Entities.CompletedRideStatistics();
+        statistics.CompletedRideId = this.CompletedRideId;
+        statistics.UserLogin = UserLogin;
+        statistics.MaximumSpeed = MaxSpeed;
+        statistics.AverageSpeed = AvgSpeed;
+        statistics.Falls = Falls;
+        statistics.Calories = Calories;
+        statistics.Distance = Distance;
+        statistics.Duration = Duration;
 
-        };
+        return statistics;
+       
     }
 }

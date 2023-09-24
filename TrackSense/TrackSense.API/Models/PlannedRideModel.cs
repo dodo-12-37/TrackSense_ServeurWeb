@@ -14,8 +14,8 @@ namespace TrackSense.API.Models
         [DefaultValue("Administrateur")]
         public string? Name { get; set; } 
         public bool ?IsFavorite { get; set; }
-        public PlannedRideStatisticsModel? Statistics { get; set; }
-        public List<PlannedRidePointModel> PlannedRidePoint { get; set; } =null!;
+        public PlannedRideStatisticsModel? Statistics { get; }
+        public List<PlannedRidePointModel> PlannedRidePoint { get; set; }
 
         public PlannedRideModel()
         {

@@ -7,7 +7,7 @@ namespace TrackSense.API.Models
     public class CompletedRidePointModel
     {
         [DefaultValue("b0f07b65-3055-4f99-bc09-91829ca16fdb")]
-        public string CompletedRideId { get; set; } = Guid.NewGuid().ToString();  
+        public string CompletedRideId { get; set; }
         public LocationModel Location { get; set; } = new LocationModel();
         public int ? RideStep { get; set; }
         public double ? Temperature { get; set; }

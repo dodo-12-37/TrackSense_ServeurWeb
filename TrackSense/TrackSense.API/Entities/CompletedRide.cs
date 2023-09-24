@@ -20,11 +20,11 @@
             
             this.CompletedRidePoints = p_locations.Select(l => new CompletedRidePoint(l,this.CompletedRideId)).ToList();
            
-            this.Statistics = new CompletedRideStatistics(this.CompletedRidePoints,this.CompletedRideId);
+            //this.Statistics = new CompletedRideStatistics(this.CompletedRidePoints,this.CompletedRideId);
         }
-        public CompletedRide(string p_userLogin, List<Location> p_locations,PlannedRide p_plannedRide):this(p_userLogin,p_locations)
+  /*      public CompletedRide(string p_userLogin, List<Location> p_locations,PlannedRide p_plannedRide):this(p_userLogin,p_locations)
         {
             this.PlannedRide = p_plannedRide;
-        }
+        }*/
     }
 }
