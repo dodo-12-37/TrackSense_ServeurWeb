@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class CompletedRidePointModel
     {
-        [DefaultValue("b0f07b65-3055-4f99-bc09-91829ca16fdb")]
+        [JsonIgnore]
         public string CompletedRideId { get; set; }
         public LocationModel Location { get; set; } = new LocationModel();
         public int ? RideStep { get; set; }
         public double ? Temperature { get; set; }
-        public DateTime DateTime { get; set; } = DateTime.UtcNow;
+
+        public DateTime? DateTime { get; set; } = null;
 
         public CompletedRidePointModel()
         {

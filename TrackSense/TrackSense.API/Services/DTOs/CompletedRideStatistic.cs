@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace TrackSense.API.Services.DTOs;
 [Table("RideStatistic")]
@@ -29,17 +31,7 @@ public class CompletedRideStatistic
     {
         
     }
-   /* public CompletedRideStatistic(Entities.CompletedRideStatistics p_completedRideStatistics)
-    {
-        this.CompletedRideId = p_completedRideStatistics.CompletedRideId;
-        this.MaxSpeed = p_completedRideStatistics.MaximumSpeed;
-        this.AvgSpeed = p_completedRideStatistics.AverageSpeed;
-        this.Falls = p_completedRideStatistics.Falls;
-        this.Calories = p_completedRideStatistics.Calories;
-        this.Distance = p_completedRideStatistics.Distance;
-        this.Duration = p_completedRideStatistics.Duration;
-        
-    }*/
+
    
     public Entities.CompletedRideStatistics ToEntity()
     {

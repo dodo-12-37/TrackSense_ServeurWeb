@@ -1,6 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TrackSense.API.Entities;
@@ -9,13 +13,15 @@ namespace TrackSense.API.Models
 {
     public class CompletedRideStatisticsModel 
     {
-        public string CompletedRideId { get;  } 
+        [JsonIgnore]
+        public string? CompletedRideId { get;  } = null;
         public double? AverageSpeed { get; } = 0;
         public double? MaximumSpeed { get;  } = 0;
         public double? Distance { get;  } = 0;
         public int? Calories { get;  } = 0;
-        public int? Falls { get;  } = 0;
-        public TimeSpan Duration { get; }
+        public int? Falls { get; } = 0;
+
+        public string? Duration { get ; } 
 
         public CompletedRideStatisticsModel()
         {
@@ -29,11 +35,11 @@ namespace TrackSense.API.Models
             this.MaximumSpeed = p_statistics.MaximumSpeed;
             this.Distance = p_statistics.Distance;
             this.Calories = p_statistics.Calories;
-            this.Duration = p_statistics.Duration;
+            this.Duration = p_statistics.Duration.ToString();
             this.Falls = p_statistics.Falls;
         }
 
-        public CompletedRideStatistics ToEntity()
+      /*  public CompletedRideStatistics ToEntity()
         {
             return new CompletedRideStatistics
             {
@@ -45,7 +51,7 @@ namespace TrackSense.API.Models
                 Duration = this.Duration,
                 Falls = this.Falls
             };
-        }
+        }*/
     }
 
 }

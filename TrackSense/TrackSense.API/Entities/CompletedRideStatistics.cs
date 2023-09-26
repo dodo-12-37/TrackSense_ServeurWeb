@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrackSense.API.Entities
 {
@@ -9,7 +10,7 @@ namespace TrackSense.API.Entities
         public double? AverageSpeed { get; set; }
         public double? MaximumSpeed { get; set; }
         public double? Distance { get; set; }
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
         public int? Calories { get; set; }
         public int? Falls { get; set; }
          

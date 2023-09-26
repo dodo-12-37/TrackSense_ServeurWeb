@@ -15,6 +15,8 @@ namespace TrackSense.API.Models
         
         public PlannedRideModel? PlannedRide { get; set; } 
         public List<CompletedRidePointModel> CompletedRidePoints { get; set; } =null!;
+        
+        [DefaultValue(null)]
         public CompletedRideStatisticsModel? Statistics { get; } = null;
 
         public CompletedRideModel()
@@ -59,7 +61,6 @@ namespace TrackSense.API.Models
                 CompletedRideId = this.CompletedRideId,
                 PlannedRide = this.PlannedRide?.ToEntity(),
                 CompletedRidePoints = this.CompletedRidePoints.Select(p => p.ToEntity()).ToList(),
-                Statistics = this.Statistics?.ToEntity()
 
             };
             

@@ -7,7 +7,7 @@
         public Location Location { get; set; } = null!;
         public int? RideStep { get; set; } = 0;
         public double? Temperature { get; set; } = 0;
-        public DateTime Date { get; set; } = DateTime.UtcNow;
+        public DateTime ? Date { get; set; } 
 
         public CompletedRidePoint()
         {
