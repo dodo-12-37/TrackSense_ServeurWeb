@@ -1,14 +1,23 @@
-﻿using TrackSense.API.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class CompletedRideModel
     {
-        public string UserLogin { get; set; }
-        public Guid CompletedRideId { get; set; }
-        public PlannedRide PlannedRide { get; set; }
-        public List<CompletedRidePointModel>? CompletedRidePoints { get; set; }
-        public CompletedRideStatisticsModel Statistics { get; set; }
+        [DefaultValue("admin")]
+        public string UserLogin { get; set; } = null!;
+
+        [DefaultValue("b0f07b65-3055-4f99-bc09-91829ca16fdb")]
+        public string CompletedRideId { get; set; } =null!;
+        
+        public PlannedRideModel? PlannedRide { get; set; } 
+        public List<CompletedRidePointModel> CompletedRidePoints { get; set; } =null!;
+        
+        [DefaultValue(null)]
+        public CompletedRideStatisticsModel? Statistics { get; } = null;
 
         public CompletedRideModel()
         {
@@ -17,11 +26,13 @@ namespace TrackSense.API.Models
 
         public CompletedRideModel(CompletedRide p_completedRide)
         {
+            this.UserLogin = p_completedRide.UserLogin;
+
             this.CompletedRideId = p_completedRide.CompletedRideId;
 
             if (p_completedRide.PlannedRide != null)
             {
-                this.PlannedRide = p_completedRide.PlannedRide;
+                this.PlannedRide = new PlannedRideModel(p_completedRide.PlannedRide);
             }
             else
             {
@@ -35,20 +46,24 @@ namespace TrackSense.API.Models
                     .ToList();
             }
 
-            this.Statistics = new CompletedRideStatisticsModel(p_completedRide.Statistics);
+            this.Statistics = p_completedRide.Statistics == null
+                              ? null
+                              : new CompletedRideStatisticsModel(p_completedRide.Statistics);
+
         }
 
         public CompletedRide ToEntity()
         {
-            return new CompletedRide
+
+            return new CompletedRide()
             {
+                UserLogin = this.UserLogin,
                 CompletedRideId = this.CompletedRideId,
-                PlannedRide = this.PlannedRide,
-                CompletedRidePoints = this.CompletedRidePoints?
-                    .Select(point => point.ToEntity())
-                    .ToList(),
-                Statistics = this.Statistics.ToEntity()
+                PlannedRide = this.PlannedRide?.ToEntity(),
+                CompletedRidePoints = this.CompletedRidePoints.Select(p => p.ToEntity()).ToList(),
+
             };
+            
         }
     }
 

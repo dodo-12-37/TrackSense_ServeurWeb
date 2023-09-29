@@ -1,14 +1,22 @@
-﻿using TrackSense.API.Entities;
+﻿using System.ComponentModel;
+using System.Runtime.InteropServices;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class LocationModel
     {
-        public Guid LocationId { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        [DefaultValue(0)]
+        
+        public int LocationId { get; set; } = 0;
+
+        [DefaultValue(46.778180)]
+        public double Latitude { get; set; } = 0;
+
+        [DefaultValue(-71.313940)]
+        public double Longitude { get; set; } = 0;
         public double ?Altitude { get; set; }
-        public double ?Speed { get; set; }
+        public double? Speed { get; set; } = 0;
 
 
         public LocationModel()
@@ -29,7 +37,7 @@ namespace TrackSense.API.Models
         {
             return new Location
             {
-                LocationId = this.LocationId,
+                //LocationId = this.LocationId,
                 Latitude = this.Latitude,
                 Longitude = this.Longitude,
                 Altitude = this.Altitude,

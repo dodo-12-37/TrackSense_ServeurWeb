@@ -1,47 +1,62 @@
-﻿using TrackSense.API.Entities;
+﻿using System.ComponentModel;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class PlannedRideModel
     {
-        public Guid PlannedRideId { get; set; }
-        public string Name { get; set; }
-        public bool IsFavorite { get; set; }
-        public PlannedRideStatisticsModel Statistics { get; set; }
-        public List<PlannedRidePointModel>? RidePoints { get; set; }
+        [DefaultValue("b0f07b65-3055-4f99-bc09-91829ca16fdb")]
+        public string PlannedRideId { get; set; } = null!;
+        
+        [DefaultValue("admin")]
+        public string UserLogin { get; set; } = null!;
+
+        [DefaultValue("Administrateur")]
+        public string? Name { get; set; } 
+        public bool ?IsFavorite { get; set; }
+        public PlannedRideStatisticsModel? Statistics { get; }
+        public List<PlannedRidePointModel> PlannedRidePoint { get; set; }
 
         public PlannedRideModel()
         {
-            this.Statistics = new PlannedRideStatisticsModel();
+           
         }
 
-        public PlannedRideModel(PlannedRide p_plannedRide)
+        public PlannedRideModel(Entities.PlannedRide p_plannedRide)
         {
             this.PlannedRideId = p_plannedRide.PlannedRideId;
-            this.Name = p_plannedRide.Name;
-            this.IsFavorite = p_plannedRide.IsFavorite;
-            this.Statistics = new PlannedRideStatisticsModel(p_plannedRide.Statistics);
+            this.UserLogin = p_plannedRide.UserLogin;
+            this.Name = p_plannedRide?.Name;
+            this.IsFavorite = p_plannedRide?.IsFavorite;
 
-            if (p_plannedRide.RidePoints != null)
+            if (p_plannedRide!.Statistics != null)
             {
-                this.RidePoints = p_plannedRide.RidePoints
+                this.Statistics = new PlannedRideStatisticsModel(p_plannedRide.Statistics);
+            }
+
+            if (p_plannedRide.PlannedRidePoints != null)
+            {
+                this.PlannedRidePoint = p_plannedRide.PlannedRidePoints
                     .Select(point => new PlannedRidePointModel(point))
                     .ToList();
             }
         }
 
-        public PlannedRide ToEntity()
+        public Entities.PlannedRide ToEntity()
         {
-            return new PlannedRide
+            PlannedRide plannedRide = new PlannedRide()
             {
+                UserLogin = this.UserLogin,
                 PlannedRideId = this.PlannedRideId,
                 Name = this.Name,
                 IsFavorite = this.IsFavorite,
-                Statistics = this.Statistics.ToEntity(),
-                RidePoints = this.RidePoints?
-                    .Select(point => point.ToEntity())
-                    .ToList()
+                Statistics = this.Statistics?.ToEntity(),
+                PlannedRidePoints = this.PlannedRidePoint
+                                            .Select(point => point.ToEntity())
+                                            .ToList(),
             };
+
+            return plannedRide;
         }
     }
 

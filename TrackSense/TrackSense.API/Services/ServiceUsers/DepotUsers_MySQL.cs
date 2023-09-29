@@ -1,15 +1,18 @@
-﻿using TrackSense.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using TrackSense.API.Data;
 using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;
 
 namespace TrackSense.API.Services.ServiceUsers
 {
-    public class DepotUsersMySQL: IDepotUsers
+    public class DepotUsers_MySQL : IDepotUsers
     {
-        private readonly ApplicationDbContext m_context;
-        public DepotUsersMySQL(ApplicationDbContext p_applicationDbContext)
+        private readonly TracksenseContext m_context;
+
+        public DepotUsers_MySQL(TracksenseContext tracksenseContext)
         {
-            this.m_context = p_applicationDbContext;
+            this.m_context = tracksenseContext;   
         }
         public void AddUser(User p_user)
         {
@@ -93,12 +96,26 @@ namespace TrackSense.API.Services.ServiceUsers
 
         public User? GetUserByUserLogin(string p_userLogin)
         {
-            throw new NotImplementedException();
+            return m_context.Users.Find(p_userLogin)?.ToEntity();
         }
 
         public IEnumerable<UserCompletedRide> GetUserCompletedRides(string p_userLogin)
         {
-            throw new NotImplementedException();
+            List<UserCompletedRide> userCompletedRide = new List<UserCompletedRide>() ;
+            try
+            {
+                userCompletedRide = m_context.UserCompletedRides
+                                                    .Where(ucr => ucr.UserLogin == p_userLogin)
+                                                    .Select(ucr => ucr.ToEntity())
+                                                    .ToList();
+            }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.Message );
+            }
+            
+            return userCompletedRide;
+                
         }
 
         public UserContact? GetUserContactById(int p_userLogin)
@@ -155,5 +172,10 @@ namespace TrackSense.API.Services.ServiceUsers
         {
             throw new NotImplementedException();
         }
+        public bool UserExist(string p_UserLogin)
+        {
+            return m_context.Users.Any(u => u.UserLogin== p_UserLogin);
+        }
+
     }
 }
