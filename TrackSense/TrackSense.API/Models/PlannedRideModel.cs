@@ -11,7 +11,7 @@ namespace TrackSense.API.Models
         [DefaultValue("admin")]
         public string UserLogin { get; set; } = null!;
 
-        [DefaultValue("Administrateur")]
+        [DefaultValue("La balade du dimanche")]
         public string? Name { get; set; } 
         public bool ?IsFavorite { get; set; }
         public PlannedRideStatisticsModel? Statistics { get; }
@@ -55,6 +55,8 @@ namespace TrackSense.API.Models
                                             .Select(point => point.ToEntity())
                                             .ToList(),
             };
+
+            plannedRide.PlannedRidePoints.ForEach(point => point.PlannedRideId = this.PlannedRideId);
 
             return plannedRide;
         }
