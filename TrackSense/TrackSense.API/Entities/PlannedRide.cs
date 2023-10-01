@@ -7,7 +7,7 @@
         public string? Name { get; set; } = null;
         public bool ?IsFavorite { get; set; } = null;
         public PlannedRideStatistics? Statistics { get; set; }=null;
-        public ICollection<PlannedRidePoint> PlannedRidePoints { get; set; } = null!;
+        public List<PlannedRidePoint> PlannedRidePoints { get; set; } = null!;
 
         public PlannedRide()
         {
