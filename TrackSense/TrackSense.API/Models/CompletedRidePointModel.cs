@@ -8,7 +8,7 @@ namespace TrackSense.API.Models
     public class CompletedRidePointModel
     {
         [JsonIgnore]
-        public string CompletedRideId { get; set; }
+        public string? CompletedRideId { get; set; }
         public LocationModel Location { get; set; } = new LocationModel();
         public int ? RideStep { get; set; }
         public double ? Temperature { get; set; }
