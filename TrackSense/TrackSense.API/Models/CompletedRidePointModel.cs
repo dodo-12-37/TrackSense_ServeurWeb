@@ -12,8 +12,7 @@ namespace TrackSense.API.Models
         public LocationModel Location { get; set; } = new LocationModel();
         public int ? RideStep { get; set; }
         public double ? Temperature { get; set; }
-
-        public DateTime? DateTime { get; set; } = null;
+        public DateTime DateTime { get; set; }
 
         public CompletedRidePointModel()
         {
