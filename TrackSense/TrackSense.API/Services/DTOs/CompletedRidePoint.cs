@@ -17,7 +17,7 @@ public class CompletedRidePoint
 
     public double? Temperature { get; set; }
 
-    public DateTime ? Date { get; set; }
+    public DateTime Date { get; set; }
 
     [ForeignKey(nameof(CompletedRideId))]
     public virtual CompletedRide CompletedRide { get; set; } = null!;

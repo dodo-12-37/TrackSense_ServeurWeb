@@ -101,10 +101,10 @@ namespace TrackSense.API.Services.ServiceUsers
 
         public IEnumerable<UserCompletedRide> GetUserCompletedRides(string p_userLogin)
         {
-            List<UserCompletedRide> userCompletedRide = new List<UserCompletedRide>() ;
+            List<UserCompletedRide> userCompletedRides = new List<UserCompletedRide>() ;
             try
             {
-                userCompletedRide = m_context.UserCompletedRides
+                userCompletedRides = m_context.UserCompletedRides
                                                     .Where(ucr => ucr.UserLogin == p_userLogin)
                                                     .Select(ucr => ucr.ToEntity())
                                                     .ToList();
@@ -114,7 +114,7 @@ namespace TrackSense.API.Services.ServiceUsers
                 Console.WriteLine(ex.Message );
             }
             
-            return userCompletedRide;
+            return userCompletedRides;
                 
         }
 

@@ -12,6 +12,7 @@ Tracksense2
 *.user
 *.userosscache
 *.sln.docstates
+*.publishsettings
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

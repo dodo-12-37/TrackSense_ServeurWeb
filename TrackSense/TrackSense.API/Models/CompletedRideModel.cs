@@ -54,16 +54,16 @@ namespace TrackSense.API.Models
 
         public CompletedRide ToEntity()
         {
-
-            return new CompletedRide()
+            CompletedRide cpr = new CompletedRide()
             {
                 UserLogin = this.UserLogin,
                 CompletedRideId = this.CompletedRideId,
                 PlannedRide = this.PlannedRide?.ToEntity(),
-                CompletedRidePoints = this.CompletedRidePoints.Select(p => p.ToEntity()).ToList(),
-
+                CompletedRidePoints = this.CompletedRidePoints.Select(p => p.ToEntity()).ToList()
             };
+            cpr.CompletedRidePoints.ForEach(p => p.CompletedRideId = this.CompletedRideId);
             
+            return cpr;
         }
     }
 

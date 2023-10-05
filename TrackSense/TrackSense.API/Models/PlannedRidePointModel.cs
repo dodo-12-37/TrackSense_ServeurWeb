@@ -7,8 +7,7 @@ namespace TrackSense.API.Models
     public class PlannedRidePointModel
     {
         [JsonIgnore]
-        [DefaultValue("b0f07b65-3055-4f99-bc09-91829ca16fdb")]
-        public string PlannedRideId { get; set; } = null!;
+        public string? PlannedRideId { get; set; } = null;
         public LocationModel Location { get; set; } = new LocationModel();
         public int ?RideStep { get; set; }
         public double? Temperature { get; set; } 
