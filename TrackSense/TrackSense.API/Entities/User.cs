@@ -2,10 +2,11 @@
 {
     public class User
     {
-        public string UserLogin { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
-        public string UserPhoneNumber { get; set; }
+        public string UserLogin { get; set; } = string.Empty;
+        public string ?UserFirstName { get; set; } = string.Empty;
+        public string ?UserLastName { get; set; } = string.Empty;
+        public string ?UserPhoneNumber { get; set; }
+        public string ?UserEmail { get; set; }
         public Address? Address { get; set; }
         public List<UserInterestPoint>? IntersetPoints { get; set; }
         public List<UserContact>? Contacts { get; set; }

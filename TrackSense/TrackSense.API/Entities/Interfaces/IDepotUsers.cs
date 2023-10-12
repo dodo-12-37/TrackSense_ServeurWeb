@@ -4,6 +4,7 @@ namespace TrackSense.API.Entities.Interfaces
 {
     public interface IDepotUsers
     {
+        bool UserExist(string p_userLogin);
         IEnumerable<User> GetAllUsers();
         User? GetUserByUserLogin(string p_userLogin);
         void UpdateUser(User p_user);

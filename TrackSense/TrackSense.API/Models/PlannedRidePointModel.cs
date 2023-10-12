@@ -1,12 +1,16 @@
-﻿using TrackSense.API.Entities;
+﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
+using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {
     public class PlannedRidePointModel
     {
-        public LocationModel Location { get; set; }
-        public int RideStep { get; set; }
-        public double Temperature { get; set; }
+        [JsonIgnore]
+        public string? PlannedRideId { get; set; } = null;
+        public LocationModel Location { get; set; } = new LocationModel();
+        public int ?RideStep { get; set; }
+        public double? Temperature { get; set; } 
 
         public PlannedRidePointModel()
         {
@@ -15,6 +19,7 @@ namespace TrackSense.API.Models
 
         public PlannedRidePointModel(PlannedRidePoint point)
         {
+            this.PlannedRideId = point.PlannedRideId;
             this.Location = new LocationModel(point.Location);
             this.RideStep = point.RideStep;
             this.Temperature = point.Temperature;
@@ -24,6 +29,7 @@ namespace TrackSense.API.Models
         {
             return new PlannedRidePoint
             {
+                PlannedRideId = this.PlannedRideId,
                 Location = this.Location.ToEntity(),
                 RideStep = this.RideStep,
                 Temperature = this.Temperature
