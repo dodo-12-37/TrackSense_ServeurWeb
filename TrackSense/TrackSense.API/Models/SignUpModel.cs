@@ -22,5 +22,7 @@ namespace TrackSense.API.Models
         
         [Required]
         public string LastName { get; set; } = null!;
+
     }
+    
 }

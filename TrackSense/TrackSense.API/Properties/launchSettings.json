@@ -10,6 +10,33 @@
         },
         "dotnetRunMessages": true,
         "applicationUrl": "https://localhost:7044;http://localhost:5179"
+      },
+      "IIS Express": {
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "launchUrl": "weatherforecast",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+      },
+      "WSL": {
+        "commandName": "WSL2",
+        "launchBrowser": true,
+        "launchUrl": "https://localhost:7044/weatherforecast",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "ASPNETCORE_URLS": "https://localhost:7044;http://localhost:5179"
+        },
+        "distributionName": ""
       }
-   
+    },
+    "$schema": "https://json.schemastore.org/launchsettings.json",
+    "iisSettings": {
+      "windowsAuthentication": false,
+      "anonymousAuthentication": true,
+      "iisExpress": {
+        "applicationUrl": "http://localhost:49983",
+        "sslPort": 44337
+      }
+    }
   }

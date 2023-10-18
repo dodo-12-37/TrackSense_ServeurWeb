@@ -1,11 +1,14 @@
-﻿using System.Globalization;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using MySqlX.XDevAPI.Common;
+using System.Globalization;
 
 namespace TrackSense.API.Entities.Interfaces
 {
     public interface IDepotUsers
     {
         bool UserExist(string p_userLogin);
-        IEnumerable<User> GetAllUsers();
+        //IEnumerable<User> GetAllUsers();
         User? GetUserByUserLogin(string p_userLogin);
         void UpdateUser(User p_user);
         void DeleteUser(string p_userLogin);

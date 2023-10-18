@@ -4,9 +4,11 @@ using TrackSense.API.Entities.Interfaces;
 using TrackSense.API.Data;
 using TrackSense.API.Services.ServiceUsers;
 using TrackSense.API.Services.ServiceRides;
+using TrackSense.API.Services.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using TrackSense.API.Services.ServiceComptes;
 
 namespace TrackSense.API
@@ -46,11 +48,11 @@ namespace TrackSense.API
 
             builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-           /* builder.Services.AddIdentity<UserDTO,IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>()
+         /*   builder.Services.AddIdentity<User, IdentityRole>()
+                            .AddEntityFrameworkStores<TracksenseContext>()
                             .AddDefaultTokenProviders();*/
             // Authentication
-         /*   builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+           /* builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                             .AddJwtBearer(options =>
                             {
                                 options.SaveToken = true;
@@ -72,9 +74,9 @@ namespace TrackSense.API
 
             // Configure the HTTP request pipeline.
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-                app.UseSwagger();
+            app.UseSwagger();
                 app.UseSwaggerUI();
           /*  if (app.Environment.IsDevelopment())
             {
@@ -85,10 +87,10 @@ namespace TrackSense.API
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.UseRouting();
-/*
+
             app.UseAuthentication();
-            app.UseAuthorization();*/
-            
+            app.UseAuthorization();
+
 
             app.MapControllers();
 

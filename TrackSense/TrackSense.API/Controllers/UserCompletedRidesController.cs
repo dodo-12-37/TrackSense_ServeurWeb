@@ -38,7 +38,7 @@ namespace TrackSense.API.Controllers
             {
                 response = Unauthorized();
             }
-            else if (!this.m_usersManipulation.CheckUser(p_login))
+            else if (!this.m_usersManipulation.UserExist(p_login))
             {
                 response = BadRequest();
             }

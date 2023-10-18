@@ -1,5 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using TrackSense.API.Data;
 using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;
@@ -16,7 +21,23 @@ namespace TrackSense.API.Services.ServiceUsers
         }
         public void AddUser(User p_user)
         {
-            throw new NotImplementedException();
+            if (p_user == null)
+            {
+                throw new ArgumentNullException(nameof(p_user));
+            }
+            try
+            {
+                DTOs.User user = new DTOs.User(p_user);
+                m_context.Users.Add(user);
+                m_context.SaveChanges();
+                m_context.ChangeTracker.Clear();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+           
         }
 
         public void AddUserContact(UserContact p_userContact, string p_userLogin)
@@ -79,10 +100,10 @@ namespace TrackSense.API.Services.ServiceUsers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAllUsers()
+       /* public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
-        }
+            return m_context.Users.f
+        }*/
 
         public IEnumerable<UserTrackSense>? GetAllUserTrackSenses(string p_userLogin)
         {
@@ -96,7 +117,10 @@ namespace TrackSense.API.Services.ServiceUsers
 
         public User? GetUserByUserLogin(string p_userLogin)
         {
-            return m_context.Users.Find(p_userLogin)?.ToEntity();
+            DTOs.User ?user = m_context.Users.Where(u => u.UserLogin ==p_userLogin)
+                                             .Include(u=>u.Credential)
+                                             .FirstOrDefault();
+            return user?.ToEntity();
         }
 
         public IEnumerable<UserCompletedRide> GetUserCompletedRides(string p_userLogin)

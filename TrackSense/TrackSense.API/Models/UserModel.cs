@@ -7,8 +7,10 @@ namespace TrackSense.API.Models
         public string UserLogin { get; set; }
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
-        public string UserPhoneNumber { get; set; }
+        public string UserEmail { get; set; }
+        public string? UserPhoneNumber { get; set; }
         public AddressModel? Address { get; set; }
+        public Credential Credential { get; set; } = null!;
         public List<UserInterestPointModel>? InterestPoints { get; set; }
         public List<UserContactModel>? Contacts { get; set; }
         public List<UserTrackSenseModel>? TrackSenses { get; set; }
@@ -19,7 +21,13 @@ namespace TrackSense.API.Models
         {
             ;
         }
-
+        public UserModel(SignUpModel signUpModel)
+        {
+            this.UserLogin = signUpModel.UserLogin;
+            this.UserFirstName = signUpModel.FirstName;
+            this.UserLastName = signUpModel.LastName;
+            this.UserEmail = signUpModel.Email;
+        }
         public UserModel(User p_user)
         {
             this.UserLogin = p_user.UserLogin;

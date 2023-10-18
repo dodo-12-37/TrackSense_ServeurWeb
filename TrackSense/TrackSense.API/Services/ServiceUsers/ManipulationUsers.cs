@@ -1,17 +1,21 @@
 ﻿using TrackSense.API.Entities;
+using BCrypt.Net;
 using TrackSense.API.Entities.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using Org.BouncyCastle.Crypto.Generators;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrackSense.API.Services.ServiceUsers
 {
     public class ManipulationUsers
     {
         private IDepotUsers m_depotUsers;
+        private IConfiguration m_configuration;
 
-        public ManipulationUsers(IDepotUsers p_depotUsers)
+        public ManipulationUsers(IDepotUsers p_depotUsers, IConfiguration configuration)
         {
             if (p_depotUsers == null)
             {
@@ -19,6 +23,7 @@ namespace TrackSense.API.Services.ServiceUsers
             }
 
             this.m_depotUsers = p_depotUsers;
+            m_configuration = configuration;
         }
 
         public bool CheckUserToken(string p_token)
@@ -31,7 +36,7 @@ namespace TrackSense.API.Services.ServiceUsers
             return this.m_depotUsers.CheckUserToken(p_token);
         }
 
-        public bool CheckUser(string p_userLogin)
+        public bool UserExist(string p_userLogin)
         {
             return !String.IsNullOrEmpty(p_userLogin) 
                 && this.m_depotUsers.UserExist(p_userLogin);
@@ -43,26 +48,91 @@ namespace TrackSense.API.Services.ServiceUsers
             {
                 throw new ArgumentNullException($"{nameof(p_userLogin)} et {p_userLogin} ne doivent pas etre nulls ou vides - {nameof(ManipulationUsers)}.{nameof(GenerateUserBearerToken)}");
             }
-
-            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(p_userPassword));
-            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            Claim[] claims = new[]
+            try
             {
-                new Claim(JwtRegisteredClaimNames.Sub, p_userLogin),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            };
+                List<Claim> claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, p_userLogin),
+                };
+                
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    m_configuration.GetSection("JWT:Secret").Value!));
+                SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.UtcNow.AddYears(10), // Durée de validité du jeton
-                signingCredentials: creds
-            );
+                var token = new JwtSecurityToken(
+                        claims: claims,
+                        expires: DateTime.Now.AddDays(30),
+                        signingCredentials: creds
+                        
+                    );
 
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            string bearerToken = tokenHandler.WriteToken(token);
-            return bearerToken;
+                // Write the token to a string
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+                // Print the token string
+                //Console.WriteLine($"Token: {tokenString}");
+                return tokenString;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error generating JWT token: {ex.Message}");
+            }
+
+            
         }
+        public void Signup(string p_userLogin, string p_passWord, string p_email, string p_firstName, string p_lastName)
+        {
+            if (m_depotUsers.UserExist(p_userLogin))
+            {
+                throw new  InvalidOperationException("UserLogin is existed");
+            }
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            string hashedPassword =  BCrypt.Net.BCrypt.HashPassword(p_passWord, salt);
+            User newUser = new User()
+            {
+                UserFirstName = p_firstName,
+                UserLastName = p_lastName,
+                UserLogin = p_userLogin,
+                UserEmail= p_email,
+                Credential = new Credential()
+                {
+                    UserLogin = p_userLogin,
+                    HashedPassword = hashedPassword,
+                }
+            };
+            try
+            {
+                m_depotUsers.AddUser(newUser);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message, ex);
+            }
+          
+        }
+
+        public string Login(string p_userLogin, string p_password)
+        {
+            if (!m_depotUsers.UserExist( p_userLogin))
+            {
+                throw new InvalidOperationException("UserLogin not is existed");
+            }
+            //Verify password
+            User user = this.m_depotUsers.GetUserByUserLogin(p_userLogin)!;
+            
+            bool matchedPassword = BCrypt.Net.BCrypt.Verify(p_password, user.Credential.HashedPassword);
+
+            if (!matchedPassword)
+            {
+                throw new InvalidOperationException("Passwrood is incorrect");
+            }
+            return this.GenerateUserBearerToken(p_userLogin, p_password);
+
+        }
+        
+
 
         public IEnumerable<UserCompletedRide> GetCompletedRides(string p_userLogin)
         {
