@@ -1,0 +1,34 @@
+version: '3.2'
+
+services:
+  tracksense-api:
+    image: simonquillaud/tracksense:latest
+    networks:
+      - backend
+    depends_on:
+      - tracksense-db
+    ports:
+      - "80:80"
+      - "443:443"
+    command: sh -c "dotnet Artefacts/TrackSense.API.dll"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=tracksense-db;Port=3306;Database=tracksense;User=root;"
+
+  tracksense-db:
+    image: mysql:latest
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - tracksense:/var/lib/mysql
+      - ./script_MySQL.sql:/docker-entrypoint-initdb.d/init-script.sql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: tracksense
+      MYSQL_ROOT_PASSWORD: ""
+
+networks:
+  backend:
+
+volumes:
+  tracksense:

@@ -1,9 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /App
 
-#RUN apt-get update
-#RUN apt-get install -y npm
-
 # Copy everything
 COPY ./TrackSense ./
 
