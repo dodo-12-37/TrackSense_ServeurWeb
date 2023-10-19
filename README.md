@@ -57,3 +57,4 @@ Dans ce projet, nous hébergeons le serveur et la base de données sur https://w
 ![Import Profile](./Documentation/images/14.ImportProfile.png)
  
 15. Vous pouvez maintenant publier votre serveur sur l'hébergement.
+Nous ferons la création d'un objet connecté nommé le TrackSense. Cette objet sera principalement utilisé sur un vélo ou un piéton.
