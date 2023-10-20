@@ -19,9 +19,9 @@ namespace TrackSense.API.Controllers
         [HttpGet("availibityLogin")]
         public ActionResult<AvailibilityModel> GetAvailibityLogin(string p_userLogin)
         {
-            bool result = m_manipulationUsers.UserExist(p_userLogin);
+            bool isExist = m_manipulationUsers.UserExist(p_userLogin);
 
-            return Ok(new AvailibilityModel(result));
+            return Ok(new AvailibilityModel(!isExist));
         }
 
 
