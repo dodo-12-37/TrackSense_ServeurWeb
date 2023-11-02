@@ -21,7 +21,9 @@ namespace TrackSense.API.Controllers
         {
             bool isExist = m_manipulationUsers.UserExist(p_userLogin);
 
-            return Ok(new AvailibilityModel(isExist));
+            AvailibilityModel availibility = new AvailibilityModel(!isExist);
+
+            return Ok(availibility);
         }
 
 
