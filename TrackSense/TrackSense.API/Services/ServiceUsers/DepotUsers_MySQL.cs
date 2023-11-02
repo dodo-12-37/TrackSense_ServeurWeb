@@ -198,7 +198,7 @@ namespace TrackSense.API.Services.ServiceUsers
         }
         public bool UserExist(string p_UserLogin)
         {
-            return m_context.Users.Any(u => u.UserLogin== p_UserLogin);
+            return !m_context.Users.Any(u => u.UserLogin == p_UserLogin);
         }
 
     }
