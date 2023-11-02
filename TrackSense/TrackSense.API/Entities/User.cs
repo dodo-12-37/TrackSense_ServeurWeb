@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Asn1.Cms.Ecc;
-using System.ComponentModel.DataAnnotations;
-
-namespace TrackSense.API.Entities
+﻿namespace TrackSense.API.Entities
 {
     public class User
     {

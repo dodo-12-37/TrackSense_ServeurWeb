@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrackSense.API.Services.DTOs;
-[Table("completedridepoint")]
+[Table("CompletedRidePoint")]
 [PrimaryKey(nameof(CompletedRideId),nameof(LocationId))]
 public class CompletedRidePoint
 {

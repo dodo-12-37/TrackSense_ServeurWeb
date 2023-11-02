@@ -1,12 +1,9 @@
 ﻿using TrackSense.API.Entities;
-using BCrypt.Net;
 using TrackSense.API.Entities.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
-using Org.BouncyCastle.Crypto.Generators;
-using System.ComponentModel.DataAnnotations;
 
 namespace TrackSense.API.Services.ServiceUsers
 {

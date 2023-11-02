@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace TrackSense.API.Entities
+﻿namespace TrackSense.API.Entities
 {
     public class Credential
     {

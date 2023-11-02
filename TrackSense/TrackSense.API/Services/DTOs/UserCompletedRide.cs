@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TrackSense.API.Services.DTOs
 {
     [Keyless]
-    [Table("usercompletedRide")]
+    [Table("UserCompletedRide")]
     public class UserCompletedRide
     {
         public string UserLogin { get; set; }

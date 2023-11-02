@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using TrackSense.API.Entities;
 using TrackSense.API.Models;
-using TrackSense.API.Services.ServiceRides;
 using TrackSense.API.Services.ServiceUsers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

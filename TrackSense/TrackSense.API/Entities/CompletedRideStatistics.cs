@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System.ComponentModel.DataAnnotations;
-
-namespace TrackSense.API.Entities
+﻿namespace TrackSense.API.Entities
 {
     public class CompletedRideStatistics
     {

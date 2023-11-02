@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TrackSense.API.Entities;
+﻿using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
 {

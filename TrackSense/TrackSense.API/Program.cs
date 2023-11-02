@@ -4,11 +4,6 @@ using TrackSense.API.Entities.Interfaces;
 using TrackSense.API.Data;
 using TrackSense.API.Services.ServiceUsers;
 using TrackSense.API.Services.ServiceRides;
-using TrackSense.API.Services.DTOs;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using TrackSense.API.Services.ServiceComptes;
 
 namespace TrackSense.API

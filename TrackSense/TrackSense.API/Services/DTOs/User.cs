@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-using TrackSense.API.Entities;
 
 namespace TrackSense.API.Services.DTOs;
 [Table("User")]

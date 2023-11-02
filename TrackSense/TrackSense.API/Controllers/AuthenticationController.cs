@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Writers;
-using System.ComponentModel.DataAnnotations;
 using TrackSense.API.Entities;
-using TrackSense.API.Entities.Interfaces;
 using TrackSense.API.Models;
 using TrackSense.API.Services.ServiceUsers;
 

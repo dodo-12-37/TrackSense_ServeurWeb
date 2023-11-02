@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MySqlX.XDevAPI.Common;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using Microsoft.EntityFrameworkCore;
 using TrackSense.API.Data;
 using TrackSense.API.Entities;
 using TrackSense.API.Entities.Interfaces;

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.InteropServices;
 using TrackSense.API.Entities;
 
 namespace TrackSense.API.Models
